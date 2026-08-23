@@ -638,10 +638,10 @@ a {
   margin-bottom: 0.65rem;
 }
 
+/* these run to a full paragraph each, so they stay at body size */
 .statement__text {
   color: var(--ink);
-  font-size: var(--fs-lede);
-  line-height: 1.4;
+  line-height: 1.55;
   text-wrap: pretty;
 }
 
@@ -773,14 +773,25 @@ a {
 }
 
 .idol__figure figcaption {
+  padding: 0.75rem 0.85rem 1rem;
+}
+
+.idol__name {
+  display: block;
   font-family: var(--display);
   font-size: var(--fs-label);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--ink);
+}
+
+.idol__role {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   color: var(--slate);
-  padding: 0.75rem 0.85rem 1rem;
-  line-height: 1.5;
 }
 
 .idol__body { margin-top: 0; margin-left: 0; }
@@ -813,6 +824,17 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--slate);
+}
+
+/* a closing qualifier set below a grid — quieter than body prose */
+.note {
+  max-width: var(--measure);
+  margin: 2.5rem auto 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1rem;
+  color: var(--slate);
+  text-wrap: pretty;
 }
 
 /* 09 — ideal employer */
