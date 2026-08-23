@@ -1,170 +1,168 @@
-# Leadership Portfolio — "Leading by Design"
+# Leadership Portfolio — "The Leadership Operating System"
 
 Static site for the BOH4M Business Leadership culminating portfolio. No framework,
 no build step, no dependencies except Google Fonts. Deploys to GitHub Pages by
 pushing files.
 
 ```
-index.html            all markup, all content markers
-styles.css            tokens, layout, print stylesheet
-script.js             nav highlighting + dev word counter (nothing else)
-assets/               portrait.jpg, idol.jpg — you supply these
+index.html            all markup, all content, the icon sprite
+styles.css            tokens, layouts, print stylesheet
+script.js             nav highlighting, entrance reveals, dev word counter
+assets/icons/         nine original SVG icons (source files)
+ASSETS.md             asset manifest, licences, and the two missing photographs
 CONTENT-CHECKLIST.md  tick these off before submitting
 .nojekyll             stops GitHub Pages running Jekyll on the files
 ```
 
-## Adding content
+## What still needs you
 
-Every place your writing goes is marked twice: an HTML comment saying exactly what
-belongs there, and a square-bracket placeholder on the line below it.
-
-```html
-<!-- CONTENT: §1 philosophy statement - ONE sentence -->
-<p class="lede">[philosophy statement]</p>
-```
-
-Replace the bracketed text. Leave the tag and its class alone — the classes carry
-the layout. To find every remaining slot:
+Everything else is written and in place. These are the open items:
 
 ```bash
-grep -n "CONTENT:" index.html
+grep -n "OUTSTANDING" index.html
 ```
 
-And to find placeholders you have not filled in yet:
+| Item | Where |
+|---|---|
+| Nine theme lines | one under each section heading, `[theme line]` |
+| Cover tagline | `[one-line tagline]` |
+| Submission date | `[date]` |
+| `assets/portrait.jpg` | required by the assignment |
+| `assets/idol.jpg` | optional — see ASSETS.md before choosing an image |
+| Three prose passes | search `PENDING YOUR EDIT` |
+| Laozi edition details | Works Cited |
+
+To find every remaining placeholder:
 
 ```bash
 grep -n "\[.*\]" index.html
 ```
 
-That second command is the one to run right before submitting. It should come back
-empty except for optional slots you deliberately deleted.
+That should come back empty before you submit.
 
-### Where each section lives
+## The visual system
 
-Search `index.html` for these banner comments:
+**Surfaces.** The page sits on deep ink `#08111F` with a faint 32px blueprint
+grid. Long-form reading happens on warm paper panels (`.panel`, `#F4F1EA`) inset
+into that dark field. Sections alternate deliberately — dark manifesto, dark
+quote break, paper reading panels, dark quadrants — so the page never repeats one
+template eleven times.
 
-| Component | Banner | Notes |
+**Colour.** Cobalt `#6C7CFF` is the primary accent on dark; on paper it deepens to
+`#3B49C9` so body-size text still clears contrast requirements. Warm orange
+`#FF8A3D` is the signal colour and appears only in three places: the active nav
+indicator, the §06 component numerals, and the §09 rule under the company name.
+
+**Type.** Instrument Serif for display — the cover name, section titles, the
+manifesto, the pull quote, stage markers. Inter for everything you actually read
+and every interface label. Body copy holds 60–70 characters per line.
+
+**Icons.** Nine original thin-line SVGs, inlined once as a `<symbol>` sprite at
+the top of `index.html` and referenced with `<use>`. Source files are in
+`assets/icons/`. See ASSETS.md — including why the licence position is clean.
+
+**Motion.** Entrance reveals of 16px over 380ms, once per element, plus a 3px card
+lift on hover and the animated nav indicator. Everything is gated behind
+`prefers-reduced-motion`, and behind a `.js` class so nothing is hidden if the
+script fails. A 3-second failsafe reveals everything unconditionally.
+
+## Section layouts
+
+| Component | Layout | Where |
 |---|---|---|
-| Cover | `COVER` | name, photo, course, instructor, theme, tagline |
-| 01 Leadership Philosophy | `01 - LEADERSHIP` | one-sentence statement, then 2–3 paragraphs |
-| 02 Leadership Quote | `02 - LEADERSHIP QUOTE` | quote, attribution, then explanation |
-| 03 Vision and Mission | `03 - VISION` | two statements side by side, then prose |
-| 04 Goals and Plans | `04 - GOALS` | three cards: Immediate, Medium-range, Long-range |
-| 05 Personal Leadership Development | `05 - PERSONAL` | continuous prose, add `<p>` freely |
-| 06 Management Skills | `06 - MANAGEMENT SKILLS` | 4 groups × 3 components = 12, each group a 2×2 ruled grid |
-| 07 Leader Idol | `07 - LEADER IDOL` | image slot + prose with in-text citations |
-| 08 Personality Traits | `08 - PERSONALITY` | INTJ-A badge, prose, 5 career cards |
-| 09 Ideal Employer | `09 - IDEAL EMPLOYER` | company name + 250–500 words |
-| Works Cited | `WORKS CITED` | MLA 9, alphabetical, hanging indent |
+| Cover | dark two-column hero, portrait right, metadata strip below | `COVER` |
+| 01 Philosophy | oversized manifesto + three numbered evidence cards | `01 -` |
+| 02 Quote | full-bleed dark break, quote as centrepiece | `02 -` |
+| 03 Vision & Mission | two asymmetric cards joined by a directional path | `03 -` |
+| 04 Goals | three-stage timeline with icons | `04 -` |
+| 05 Development | paper reading column, three visual stages | `05 -` |
+| 06 Management Skills | four quadrants, one icon each, three items inside | `06 -` |
+| 07 Leader Idol | editorial case study, image aside + prose | `07 -` |
+| 08 Personality | badge, prose, five career cards with chip titles | `08 -` |
+| 09 Ideal Employer | company mark, three stakeholder pillars | `09 -` |
+| Works Cited | quiet paper panel, hanging indents | `WORKS CITED` |
 
-### The theme line
+### Adding the photographs
 
-Every section has one slot directly under its heading:
+Neither image is referenced by an `<img>` tag yet, so there are no broken images
+and no console 404s. Each slot shows a designed placeholder naming the file it
+wants. Beside each one is a comment with the exact tag to paste in:
 
 ```html
-<!-- CONTENT: §3 theme line -->
-<p class="section__theme">[theme line]</p>
+<img class="media__img" src="assets/portrait.jpg"
+     alt="[describe the photo in a few words]" width="800" height="1000">
 ```
 
-Nine short lines, one per section, each saying how "Leading by Design" shows up in
-that component. The assignment asks for the theme to run through the whole
-portfolio, and this is the thread that carries it. Keep them to one line — they are
-set in condensed caps and will look wrong at three lines.
+Delete the `<div class="media">…</div>` block, paste that in, and write the alt
+text. Read the licence note in ASSETS.md before choosing an image for §07.
 
-### Images
+### Adding a component to §06
 
-Two files, both referenced but not included:
-
-- `assets/portrait.jpg` — you on the cover. Portrait crop, 4:5, at least 800px wide.
-- `assets/idol.jpg` — your leader idol's portrait or company logo. Square, at least 600px.
-
-Until you add them the browser shows the alt text in a grey frame, which is a useful
-reminder that they are missing. Write real alt text for both — it is marked as a
-content slot.
-
-### Repeating a block
-
-Need a fourth component under Planning, or a sixth Works Cited entry? Copy one
-existing block. For §06 that is a whole `<article class="fncell component">…</article>`,
-including its numeral and its three comment markers.
-
-One caveat for §06: each group is a 2×2 grid built for exactly one label cell plus
-three components. A fourth component pushes that group to a third row and breaks
-the corner rotation, so the four groups stop reading as a set. If you need a fourth
-example somewhere, add one to every group so they stay balanced — which is also
-what the rubric rewards.
-
-### Design language
-
-Two patterns carry through the whole page, both borrowed from the creative-arts
-site and rebuilt at hairline weight. Keep to them if you add anything:
-
-- **Section header** — centered heading, 1px rule beneath it, theme line, then a
-  10px solid `--accent` band (`<div class="band" aria-hidden="true"></div>`).
-- **Ruled cell grid** — the container draws its top and left border, each cell
-  draws right and bottom. Never put a box around a card. The tinted, centered
-  `.fncell--label` cell anchors a group; in §06 it rotates corner from group to
-  group (`--tl`, `--tr`, `--bl`, `--br`), and in §08 it sits bottom-right.
+Copy one `<article class="item">` block inside the relevant `<section
+class="quadrant">`, including its numeral span. Quadrants stretch to fit, so
+unlike the previous layout there is no fixed capacity — but add one to every
+function if you add one anywhere, so the four stay balanced. That is also what
+the rubric rewards.
 
 ## Checking §09's word count
 
-The Ideal Employer section has a 250–500 word requirement. Open the page with `?dev`
-on the end of the URL:
+Open the page with `?dev` on the end of the URL:
 
 ```
 index.html?dev
 ```
 
-A counter appears under the company name showing the current count and the target.
-It turns burgundy when you are outside the range. Placeholders in square brackets
-are not counted, so it reads 0 until you have written something real.
+A counter appears under the company name showing the count and the target,
+turning orange when you fall outside 250–500. Bracketed placeholders and the
+three structural pillar labels are excluded, so it counts only your prose.
+Currently **426 words**.
 
-Without `?dev` the counter does not render at all, so it cannot appear in the graded
-version or in front of an employer. There is nothing to remember to delete.
+Without `?dev` the counter does not render at all, so it cannot appear in the
+graded version or in front of an employer.
 
 ## After the grade comes back
 
-The cover carries your instructor's name and the submission date. That belongs there
-for grading, but this URL is meant to outlive the course. Two ways to take it off:
+The cover carries your instructor's name and the submission date. That belongs
+there for grading, but this URL is meant to outlive the course. Two ways to take
+it off:
 
-1. **Delete it.** In `index.html`, remove everything between the `SUBMISSION BLOCK`
-   comment and `END SUBMISSION BLOCK`. This is the real removal.
+1. **Delete it.** In `index.html`, remove everything between the `SUBMISSION
+   BLOCK` comment and `END SUBMISSION BLOCK`. This is the real removal.
 2. **Switch it off.** Change `<body data-mode="submission">` to
-   `<body data-mode="public">`. One edit, reversible, but the text stays in the page
-   source and in the repository history.
-
-Use option 2 if you might need to show the graded version again; use option 1 once
-you are done with it.
+   `<body data-mode="public">`. One edit, reversible, but the text stays in the
+   page source and in the repository history.
 
 ## Printing to PDF
 
-The print stylesheet is the backup submission format. Ctrl+P in Chrome or Edge,
-destination *Save as PDF*, background graphics off, margins default. The nav, the
-scroll cue, and the word counter are all hidden; the cover gets its own page; and
-no goal card, component card, career card, or Works Cited entry can break across a
-page.
+The print stylesheet is the backup submission format, and it does real work here:
+the dark design collapses entirely to white paper with hairline rules, because a
+dark page is unreadable printed and ruinous on toner.
 
-Browsers do not support CSS page numbers, so if you need them, turn on
-*Headers and footers* in the print dialog.
+Ctrl+P in Chrome or Edge, destination *Save as PDF*, background graphics **off**,
+margins default. The nav and word counter are hidden, the cover takes its own
+page, entrance reveals are forced visible, and no card, timeline stage, quadrant
+item, career card, or Works Cited entry can break across a page.
+
+Browsers do not support CSS page numbers, so if you need them, turn on *Headers
+and footers* in the print dialog.
 
 ## Deploying to GitHub Pages
 
 The repository is already created and pushed. To turn on Pages:
 
-1. Go to the repository on GitHub → **Settings** → **Pages**
-2. Under *Build and deployment*, set Source to **Deploy from a branch**
+1. Repository on GitHub → **Settings** → **Pages**
+2. Source: **Deploy from a branch**
 3. Branch: **main**, folder: **/ (root)** → **Save**
 
-The site goes live a minute or two later. Every later push updates it:
+Every later push updates it:
 
 ```bash
-git add -A && git commit -m "Add section 06 content" && git push
+git add -A && git commit -m "Add theme lines" && git push
 ```
 
 ## Editing locally
 
-Open `index.html` in a browser directly — no server needed. Refresh to see changes.
-If you want a local server anyway:
+Open `index.html` in a browser directly — no server needed. If you want one:
 
 ```bash
 python -m http.server 8000
@@ -172,9 +170,14 @@ python -m http.server 8000
 
 ## Accessibility and support notes
 
-- Works with JavaScript disabled. JS only highlights the current nav item and runs
-  the dev counter; it never renders content.
-- Keyboard focus is visible on every link, and a skip link comes first in the tab order.
-- Respects `prefers-reduced-motion` — smooth scrolling and transitions switch off.
-- Responsive down to 360px. The section index becomes a horizontal bar under 1024px.
-- Text contrast is at least 7.5:1 everywhere against the page background.
+- Works with JavaScript disabled. JS only highlights the current nav item, runs
+  the reveals, and shows the dev counter; it never renders content.
+- Nothing is hidden behind an interaction. Every word is visible to a marker
+  scrolling the page and to the printed PDF.
+- Keyboard focus is visible on every link, and a skip link comes first in the tab
+  order.
+- Respects `prefers-reduced-motion` — reveals, transitions, and smooth scrolling
+  all switch off.
+- Responsive down to 360px with no horizontal scrolling. The section index
+  becomes a horizontal bar under 1024px.
+- Body text on both dark and paper surfaces clears WCAG AA.
