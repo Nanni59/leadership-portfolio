@@ -1,27 +1,20 @@
 /* ============================================================
    Leadership Portfolio — progressive enhancement only.
 
-   This file does three things:
-     1. marks the current section in the index as you scroll
-     2. runs restrained entrance reveals
-     3. shows a word counter for §09, but only at ?dev
+   Two jobs:
+     1. mark the current section in the numbered index as you scroll
+     2. show a word counter for §09, but only at ?dev
 
-   It never renders content. If this file fails to load, every word
-   of the portfolio is still on the page, every nav link still works
-   as a plain anchor, and nothing is left invisible - the reveal
-   styles are gated behind the .js class added below.
+   No entrance animations. The two signature interactions - the
+   overlapping cover cluster and the numbered index - are CSS hover
+   and this scroll marker, nothing more.
+
+   This file never renders content. If it fails to load, every word
+   is still on the page and every nav link still works as an anchor.
    ============================================================ */
 
 (function () {
   "use strict";
-
-  var root = document.documentElement;
-  var reduced = window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- 0. Enable JS-only styling ---------- */
-
-  root.classList.add("js");
 
   /* ---------- 1. Current section in the index ---------- */
 
@@ -90,47 +83,7 @@
     update();
   }
 
-  /* ---------- 2. Entrance reveals ---------- */
-  /* 16px of movement over 380ms, once, never repeated on scroll back. */
-
-  var revealables = document.querySelectorAll(".reveal");
-
-  if (!revealables.length) {
-    // nothing to do
-  } else if (reduced || !("IntersectionObserver" in window)) {
-    // no motion wanted, or no support: show everything immediately
-    Array.prototype.forEach.call(revealables, function (el) {
-      el.classList.add("is-in");
-    });
-  } else {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-in");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.08 }
-    );
-
-    Array.prototype.forEach.call(revealables, function (el) {
-      observer.observe(el);
-    });
-
-    // Failsafe. Content must never be permanently invisible on a graded
-    // page, so after 3 seconds everything is shown unconditionally,
-    // whatever the observer did or did not do. In normal use the observer
-    // has already revealed these and this changes nothing.
-    window.setTimeout(function () {
-      Array.prototype.forEach.call(revealables, function (el) {
-        el.classList.add("is-in");
-      });
-      observer.disconnect();
-    }, 3000);
-  }
-
-  /* ---------- 3. §09 word counter, dev only ---------- */
+  /* ---------- 2. §09 word counter, dev only ---------- */
   /* Shown only when the URL carries ?dev, so it cannot appear in the
      graded or employer-facing version. Try: index.html?dev */
 

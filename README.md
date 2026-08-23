@@ -42,67 +42,81 @@ That should come back empty before you submit.
 
 ## The visual system
 
-**Surfaces.** The page sits on deep ink `#08111F` with a faint 32px blueprint
-grid. Long-form reading happens on warm paper panels (`.panel`, `#F4F1EA`) inset
-into that dark field. Sections alternate deliberately — dark manifesto, dark
-quote break, paper reading panels, dark quadrants — so the page never repeats one
-template eleven times.
+**An editorial canvas with a dark rail.** Warm canvas `#F6F4EE` carries the whole
+portfolio, over a 28px technical grid and a very light grain. The navigation is a
+dark ink rail bleeding to the left viewport edge. Exactly one section — the Laozi
+quotation — inverts to a full ink field, which is what makes it land.
 
-**Colour.** Cobalt `#6C7CFF` is the primary accent on dark; on paper it deepens to
-`#3B49C9` so body-size text still clears contrast requirements. Warm orange
-`#FF8A3D` is the signal colour and appears only in three places: the active nav
-indicator, the §06 component numerals, and the §09 rule under the company name.
+**Colour.** Ink `#111318` for text and rules. Luminous yellow `#FFE34F` for the
+cover glow, the active nav indicator, the MBTI badge, and illustration accents.
+Ultramarine `#5367FF` for section numbers and functional icons; small text on
+canvas uses the deeper `#3B4FE0`, because the lighter value only reaches 4:1 and
+fails at body size.
 
-**Type.** Instrument Serif for display — the cover name, section titles, the
-manifesto, the pull quote, stage markers. Inter for everything you actually read
-and every interface label. Body copy holds 60–70 characters per line.
+**Type, three families with three jobs.**
 
-**Icons.** Nine original thin-line SVGs, inlined once as a `<symbol>` sprite at
-the top of `index.html` and referenced with `<use>`. Source files are in
-`assets/icons/`. See ASSETS.md — including why the licence position is clean.
+| Family | Job |
+|---|---|
+| Anton | the name, section numbers, chapter numerals, all titles |
+| Instrument Serif | reflective text *only* — philosophy statement, the quotation, vision and mission |
+| Inter | body copy, labels, navigation |
 
-**Motion.** Entrance reveals of 16px over 380ms, once per element, plus a 3px card
-lift on hover and the animated nav indicator. Everything is gated behind
-`prefers-reduced-motion`, and behind a `.js` class so nothing is hidden if the
-script fails. A 3-second failsafe reveals everything unconditionally.
+**Illustration.** One family, seven drawings: single-weight ink line over one flat
+accent shape. Four on the cover cluster, one per chapter transition. Nothing
+scattered — the small functional icons stay small and do label work only. See
+ASSETS.md.
+
+**No panels.** Sections sit directly on the canvas, separated by rules and space
+rather than repeated rounded cards. Cards appear once, in the cover cluster,
+which is what makes them read as a signature rather than a template.
+
+**Motion.** Almost none. No entrance animations at all. The two interactions are
+the cover cluster spreading on hover or keyboard focus, and the nav indicator
+tracking your scroll. Both respect `prefers-reduced-motion`.
 
 ## Section layouts
 
 | Component | Layout | Where |
 |---|---|---|
-| Cover | dark two-column hero, portrait right, metadata strip below | `COVER` |
-| 01 Philosophy | oversized manifesto + three numbered evidence cards | `01 -` |
-| 02 Quote | full-bleed dark break, quote as centrepiece | `02 -` |
-| 03 Vision & Mission | two asymmetric cards joined by a directional path | `03 -` |
-| 04 Goals | three-stage timeline with icons | `04 -` |
-| 05 Development | paper reading column, three visual stages | `05 -` |
-| 06 Management Skills | four quadrants, one icon each, three items inside | `06 -` |
-| 07 Leader Idol | editorial case study, image aside + prose | `07 -` |
-| 08 Personality | badge, prose, five career cards with chip titles | `08 -` |
+| Cover | enormous condensed name, five-card overlapping cluster, metadata strip | `COVER` |
+| **Chapter I — Foundation** | illustration-led transition | `CHAPTER I` |
+| 01 Philosophy | serif manifesto + three ruled evidence columns | `01 -` |
+| 02 Quote | full ink field, quotation as centrepiece | `02 -` |
+| 03 Vision & Mission | two serif statements joined by a directional path | `03 -` |
+| **Chapter II — Practice** | illustration-led transition, flipped | `CHAPTER II` |
+| 04 Goals | three-stage timeline on a yellow rule | `04 -` |
+| 05 Development | reading column, three numbered stages | `05 -` |
+| 06 Management Skills | four bordered quadrants, one icon each | `06 -` |
+| **Chapter III — Direction** | illustration-led transition | `CHAPTER III` |
+| 07 Leader Idol | case study, initials card + prose | `07 -` |
+| 08 Personality | yellow badge, prose, numbered career list | `08 -` |
 | 09 Ideal Employer | company mark, three stakeholder pillars | `09 -` |
-| Works Cited | quiet paper panel, hanging indents | `WORKS CITED` |
+| Works Cited | quiet, hanging indents | `WORKS CITED` |
 
-### Adding the photographs
+Headings run h1 → h2 (chapters, Works Cited) → h3 (the nine components) → h4 → h5
+with no skipped levels, so the chapter structure is real document structure, not
+just a visual divider.
 
-Neither image is referenced by an `<img>` tag yet, so there are no broken images
-and no console 404s. Each slot shows a designed placeholder naming the file it
-wants. Beside each one is a comment with the exact tag to paste in:
+### Adding the portrait
+
+The portrait is the front card of the cover cluster. Delete the
+`<div class="hcard__slot">…</div>` block and paste in the tag sitting in the
+comment beside it:
 
 ```html
-<img class="media__img" src="assets/portrait.jpg"
+<img class="hcard__img" src="assets/portrait.jpg"
      alt="[describe the photo in a few words]" width="800" height="1000">
 ```
 
-Delete the `<div class="media">…</div>` block, paste that in, and write the alt
-text. Read the licence note in ASSETS.md before choosing an image for §07.
+§07 needs no photograph — the initials card is a finished treatment. See
+ASSETS.md before adding one.
 
 ### Adding a component to §06
 
 Copy one `<article class="item">` block inside the relevant `<section
 class="quadrant">`, including its numeral span. Quadrants stretch to fit, so
-unlike the previous layout there is no fixed capacity — but add one to every
-function if you add one anywhere, so the four stay balanced. That is also what
-the rubric rewards.
+there is no fixed capacity — but add one to every function if you add one
+anywhere, so the four stay balanced. That is also what the rubric rewards.
 
 ## Checking §09's word count
 

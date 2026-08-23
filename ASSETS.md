@@ -1,9 +1,38 @@
 # Asset manifest
 
 Every visual asset used by this site, with its source and licence. Nothing is
-loaded from a third-party CDN or an unstable remote URL.
+loaded from a third-party CDN or an unstable remote URL, and nothing is
+AI-generated or scraped from an icon marketplace.
 
-## Icons — `assets/icons/`
+## Editorial illustrations — seven, inline in `index.html`
+
+One family, one drawing style: single-weight ink line (2.5px, round caps and
+joins) laid over one flat accent shape in either luminous yellow or ultramarine.
+No gradients, no third colour, no filled figures.
+
+| Illustration | Where | Accent |
+|---|---|---|
+| Systems — three linked nodes | cover cluster card | yellow |
+| Technology — monitor and cursor | cover cluster card | ultramarine |
+| Collaboration — three figures at a table | cover cluster card | yellow |
+| Growth — ascending stair and arrow | cover cluster card | ultramarine |
+| Foundation — stacked blocks and a set square | Chapter I transition | yellow |
+| Practice — gear and wrench | Chapter II transition | ultramarine |
+| Direction — signpost, path and sun | Chapter III transition | yellow |
+
+**Why inline rather than a sprite:** each of the seven appears exactly once, and
+inlining lets the stylesheet reach the accent shapes. That matters for print,
+where `.il .ac-y` and `.il .ac-b` are hidden so the illustrations print as pure
+line art instead of flooding a page with yellow.
+
+**Editing one:** the ink lines live inside `<g class="ln">` and take their colour
+from `currentColor`. The accent shape is a single element with `class="ac-y"` or
+`class="ac-b"`, drawn first so it sits behind. All seven use a 220×170 viewBox.
+
+## Functional icons — `assets/icons/`
+
+Nine small icons for labels only, inlined once as a `<symbol>` sprite and
+referenced with `<use>`.
 
 | File | Used for | Sprite id |
 |---|---|---|
@@ -15,42 +44,46 @@ loaded from a third-party CDN or an unstable remote URL.
 | `compass.svg` | §04 Medium-range goal | `#i-compass` |
 | `cap.svg` | §04 Long-range goal | `#i-cap` |
 | `arrow.svg` | §03 local → wider impact path | `#i-arrow` |
-| `image.svg` | Designed placeholders for missing photographs | `#i-image` |
+| `image.svg` | portrait slot on the cover | `#i-image` |
 
-**Source and licence:** original work, drawn for this project. No third-party
-icon library, no AI-generated asset, nothing requiring attribution. You can
-state that the icons are your own if a marker asks.
+24×24 viewBox, 1.5px stroke, outline only, `currentColor`. The files here are the
+editable source; if you change one, copy the paths back into the sprite in
+`index.html`.
 
-**Family rules:** 24×24 viewBox, 1.5px stroke, round caps and joins, outline
-only — no filled icons anywhere on the page. All use `currentColor`, so they
-take the colour of whatever text they sit next to.
+## Source and licence — illustrations and icons
 
-**How they render:** the nine icons are inlined once as a `<symbol>` sprite at
-the top of `index.html` and referenced with `<svg><use href="#i-name"></svg>`.
-That means one HTTP request instead of nine, correct recolouring, no JavaScript,
-and they still print. The files in `assets/icons/` are the editable source — if
-you change one, copy the paths back into the sprite in `index.html`.
-
-**Adding an icon:** draw it on the same 24×24 grid at 1.5px stroke, save it
-here, add a `<symbol>` to the sprite, and add a row to the table above.
+Original work, drawn for this project. No third-party icon library, no
+AI-generated asset, nothing requiring attribution. If a marker asks, they are
+yours.
 
 ## Photographs — `assets/`
 
 | File | Status | Used for |
 |---|---|---|
-| `portrait.jpg` | **Required, not yet supplied** | Cover. Portrait crop, 4:5, 800px wide or more. |
-| `idol.jpg` | Optional, not yet supplied | §07 Leader Idol. Square, 600px or more. |
+| `portrait.jpg` | **Required, not yet supplied** | front card of the cover cluster. Portrait crop, 4:5, 800px wide or more. |
+| `idol.jpg` | Optional | §07. Square, 600px or more. |
 
-Neither file is referenced by an `<img>` tag yet, so there are no broken images
-and no 404s in the console. Each slot currently renders a designed placeholder
-showing the required filename. `index.html` carries a comment beside each one
-with the exact `<img>` tag to paste in once the file exists.
+Neither is referenced by an `<img>` tag, so there are no broken images and no
+404s. `index.html` carries a comment beside each slot with the exact tag to paste
+in.
 
-**Licence note for `idol.jpg`:** use an NVIDIA corporate image or leave the slot
-empty. Do not use an uncredited photograph — a graded assignment with a Works
-Cited page should not carry an unattributed image.
+**§07 needs no photograph.** The initials card is a finished editorial treatment,
+not a placeholder — the section reads as complete without an image. Add one only
+if you want to, and if you do, use an NVIDIA corporate image. Do not use an
+uncredited photograph on a document that carries a Works Cited page.
+
+**The cover portrait is different.** The assignment requires a photograph of you,
+so that slot does need filling. It sits as the front card of the cluster, which
+means the cover composition already works — dropping the photo in completes it
+rather than rescuing it.
 
 ## Fonts
 
-Instrument Serif and Inter, both served by Google Fonts under the SIL Open Font
-License 1.1. These are the only external requests the page makes.
+| Family | Job |
+|---|---|
+| Anton | the name, section numbers, chapter numerals, section and card titles |
+| Instrument Serif | reflective text only — the philosophy statement, the Laozi quotation, the vision and mission statements |
+| Inter | body copy, labels, navigation, everything read at length |
+
+All three from Google Fonts under the SIL Open Font License 1.1. These are the
+only external requests the page makes.
