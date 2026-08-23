@@ -81,6 +81,7 @@ grep -n "\[.*\]" index.html
 - [ ] Component 3 — title, category, paragraph
 
 - [ ] All four groups have three developed examples — none thinner than the others
+- [ ] Each group still fills exactly one 2×2 grid (label cell + three components)
 - [ ] Theme line
 
 ### 07 — Leader Idol

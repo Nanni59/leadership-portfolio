@@ -2,16 +2,21 @@
    Leadership Portfolio — "Leading by Design"
    BOH4M. Static CSS, no build step.
 
+   Layout language is carried over from the creative-arts site:
+   centered display headings with a rule beneath and a solid accent
+   band under that, and ruled cell grids with a rotating label cell.
+   Executed at hairline weight in the business palette.
+
    Contents
      1. Tokens
      2. Reset and base
      3. Layout shell
      4. Section index (nav)
      5. Cover
-     6. Section shell and rail
+     6. Section shell, rail, and header
      7. Typography blocks
-     8. Section-specific layouts (03, 04, 06, 07, 08, 09)
-     9. Works Cited
+     8. Ruled cell grids (03, 04, 06, 08)
+     9. Other section pieces (07, 09, Works Cited)
     10. Focus, motion, print
    ============================================================ */
 
@@ -41,18 +46,21 @@
   --fs-label: 0.75rem;
   --fs-num: 0.875rem;
   --fs-nav-num: 1.5rem;
+  --fs-cell-num: 1.75rem;
+  --fs-cell-label: clamp(1.0625rem, 1.8vw, 1.375rem);
 
   /* rhythm */
-  --space: 0.5rem;
   --section-gap: clamp(4.5rem, 9vw, 8rem);
   --measure: 65ch;
   --measure-long: 68ch;
+  --cell-pad: clamp(1rem, 2vw, 1.4rem);
 
   /* structure */
   --nav-w: 13rem;
   --rail-w: 8rem;
   --gutter: 2rem;
   --bar-h: 4.25rem;
+  --band-h: 10px;
 }
 
 /* ---------- 2. Reset and base ---------- */
@@ -110,6 +118,13 @@ a {
 }
 
 .skip:focus { left: 0; }
+
+/* the divider band, carried over from the creative site */
+.band {
+  height: var(--band-h);
+  background: var(--accent);
+  margin-top: 1.25rem;
+}
 
 /* ---------- 3. Layout shell ---------- */
 
@@ -298,9 +313,14 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(1.5rem, 4vh, 3rem);
-  padding: clamp(1.5rem, 4vh, 2.5rem) 0 1.5rem;
+  padding: clamp(1.25rem, 3vh, 2rem) 0 1.5rem;
   scroll-margin-top: var(--bar-h);
+}
+
+.cover__head {
+  text-align: center;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .cover__course {
@@ -314,16 +334,18 @@ a {
 
 .cover__grid {
   display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
   align-items: end;
+  margin-top: clamp(1.5rem, 4vh, 3rem);
 }
 
 @media (min-width: 44rem) {
-  .cover__grid { grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); }
+  .cover__grid { grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr); }
 }
 
 .portrait {
   background: var(--ground-2);
+  border: 1px solid var(--rule);
   border-top: 2px solid var(--accent);
 }
 
@@ -334,7 +356,7 @@ a {
 }
 
 @media (max-width: 43.99rem) {
-  .portrait { width: 60%; }
+  .portrait { width: 55%; }
 }
 
 .cover__name {
@@ -354,8 +376,8 @@ a {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ink);
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 2px solid var(--accent);
   display: inline-block;
 }
@@ -367,8 +389,8 @@ a {
 }
 
 .meta {
-  margin-top: 2rem;
-  padding-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 0.9rem;
   border-top: 1px solid var(--rule);
   display: grid;
   gap: 0.35rem;
@@ -402,6 +424,7 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--slate);
+  margin-top: clamp(1.5rem, 4vh, 3rem);
 }
 
 .cover__scroll::before {
@@ -409,7 +432,7 @@ a {
   margin-right: 0.5rem;
 }
 
-/* ---------- 6. Section shell and rail ---------- */
+/* ---------- 6. Section shell, rail, and header ---------- */
 
 .section {
   border-top: 1px solid var(--rule);
@@ -479,8 +502,7 @@ a {
   .rail__sub { display: block; }
 }
 
-/* ---------- 7. Typography blocks ---------- */
-
+/* centered display heading, hairline beneath, theme line, accent band */
 .section__title {
   font-family: var(--display);
   font-size: var(--fs-h2);
@@ -488,15 +510,10 @@ a {
   line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--ink);
-}
-
-.section__title::after {
-  content: "";
-  display: block;
-  width: 2.5rem;
-  height: 2px;
-  background: var(--accent);
-  margin-top: 0.9rem;
+  text-align: center;
+  text-wrap: balance;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 /* the theme thread — one marked line under every section heading */
@@ -507,32 +524,26 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--slate);
+  text-align: center;
   margin-top: 0.9rem;
-  max-width: 46ch;
   line-height: 1.6;
 }
 
-.subhead {
-  font-family: var(--display);
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  color: var(--ink);
-  margin-top: 3rem;
-  margin-bottom: 1.25rem;
-}
+/* ---------- 7. Typography blocks ---------- */
 
 .lede {
   font-size: var(--fs-lede);
   line-height: 1.45;
   color: var(--ink);
-  max-width: 34ch;
-  margin-top: 2.5rem;
+  max-width: 44ch;
+  margin: 2.5rem auto 0;
+  text-align: center;
   text-wrap: pretty;
 }
 
 .prose {
   max-width: var(--measure);
-  margin-top: 2rem;
+  margin: 2rem auto 0;
 }
 
 .prose--long { max-width: var(--measure-long); }
@@ -541,12 +552,13 @@ a {
 
 .prose p { text-wrap: pretty; }
 
-/* 02 — pull quote */
+/* 02 — pull quote, centered under the band */
 .pullquote {
-  margin-top: 2.5rem;
-  padding-left: 1.5rem;
-  border-left: 2px solid var(--accent);
-  max-width: 30ch;
+  margin: 2.5rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--accent);
+  max-width: 34ch;
+  text-align: center;
 }
 
 .pullquote blockquote p {
@@ -569,22 +581,51 @@ a {
   margin-top: 1rem;
 }
 
-/* ---------- 8. Section-specific layouts ---------- */
+/* ---------- 8. Ruled cell grids ---------- */
+/* One border model for every grid on the page: the container draws top
+   and left, each cell draws right and bottom. Hairlines, never boxes. */
+
+.statements,
+.goals,
+.fngrid,
+.careers {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+
+.statement,
+.goal,
+.fncell {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: var(--cell-pad);
+  min-width: 0;
+}
+
+/* the anchor cell — "Planning", "Suited Careers" — tinted and centered,
+   the way Core Expertise and Software Toolkit sit on the creative site */
+.fncell--label {
+  background: var(--ground-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--display);
+  font-size: var(--fs-cell-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--ink);
+}
 
 /* 03 — vision and mission */
-.statements {
-  display: grid;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-}
+.statements { margin-top: 2.5rem; }
 
 @media (min-width: 40rem) {
-  .statements { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-}
-
-.statement {
-  padding-top: 1rem;
-  border-top: 2px solid var(--ink);
+  .statements { grid-template-columns: 1fr 1fr; }
 }
 
 .statement__label {
@@ -593,30 +634,22 @@ a {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--accent);
   margin-bottom: 0.65rem;
 }
 
 .statement__text {
-  color: var(--body);
+  color: var(--ink);
+  font-size: var(--fs-lede);
+  line-height: 1.4;
   text-wrap: pretty;
 }
 
 /* 04 — goals */
-.goals {
-  display: grid;
-  gap: 1.25rem;
-  margin-top: 2.5rem;
-}
+.goals { margin-top: 2.5rem; }
 
 @media (min-width: 46rem) {
-  .goals { grid-template-columns: repeat(3, 1fr); }
-}
-
-.goal {
-  background: var(--ground-2);
-  border-top: 2px solid var(--accent);
-  padding: 1.25rem 1.25rem 1.5rem;
+  .goals { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .goal__range {
@@ -625,7 +658,7 @@ a {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--accent);
 }
 
 .goal__title {
@@ -637,43 +670,34 @@ a {
   margin: 0.4rem 0 0.75rem;
 }
 
+.goal p { font-size: 1rem; }
+
 /* 06 — management skills.
-   Every function group is a full-width row. Three components each,
-   equal width, so no function reads as under-developed. */
-.fngroup {
-  margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule);
-}
-
-.fngroup__title {
-  font-family: var(--display);
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 1.25rem;
-}
-
-.components {
-  display: grid;
-  gap: 1.25rem;
+   Each group is a 2x2 grid: one label cell plus three component cells.
+   The label cell rotates corner from group to group, which is what makes
+   the four groups read as a checkerboard while every group keeps exactly
+   the same space. */
+.fngrid {
+  margin-top: 2.5rem;
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 40rem) {
-  .components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fngrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .fngrid--tr .fncell--label { grid-column: 2; grid-row: 1; }
+  .fngrid--bl .fncell--label { grid-column: 1; grid-row: 2; }
+  .fngrid--br .fncell--label { grid-column: 2; grid-row: 2; }
 }
 
-@media (min-width: 58rem) {
-  .components { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-.component {
-  background: var(--ground-2);
-  border-top: 1px solid var(--accent);
-  padding: 1.1rem 1.1rem 1.35rem;
+.component__num {
+  font-family: var(--display);
+  font-size: var(--fs-cell-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
 }
 
 .component__title {
@@ -696,6 +720,34 @@ a {
 
 .component__text { font-size: 1rem; }
 
+/* 08 — careers: five cells plus the label cell in the bottom-right corner */
+.careers {
+  margin-top: 3rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 58rem) {
+  .careers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .careers__label { grid-column: 3; grid-row: 2; }
+}
+
+.career__title {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.career p { font-size: 1rem; }
+
+/* ---------- 9. Other section pieces ---------- */
+
 /* 07 — leader idol */
 .idol {
   display: grid;
@@ -707,7 +759,12 @@ a {
   .idol { grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr); }
 }
 
-.idol__figure { background: var(--ground-2); border-top: 2px solid var(--accent); }
+.idol__figure {
+  background: var(--ground-2);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--accent);
+  align-self: start;
+}
 
 .idol__figure img {
   width: 100%;
@@ -726,12 +783,13 @@ a {
   line-height: 1.5;
 }
 
-.idol__body { margin-top: 0; }
+.idol__body { margin-top: 0; margin-left: 0; }
 
-/* 08 — personality */
+/* 08 — personality badge */
 .mbti {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0 1rem;
   margin-top: 2.5rem;
@@ -757,36 +815,6 @@ a {
   color: var(--slate);
 }
 
-.careers {
-  display: grid;
-  gap: 1.25rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 40rem) {
-  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (min-width: 58rem) {
-  .careers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-.career {
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--rule);
-}
-
-.career__title {
-  font-family: var(--display);
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-}
-
-.career p { font-size: 1rem; }
-
 /* 09 — ideal employer */
 .employer {
   font-family: var(--display);
@@ -795,10 +823,12 @@ a {
   letter-spacing: -0.01em;
   line-height: 1.1;
   color: var(--ink);
+  text-align: center;
   margin-top: 2.5rem;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--accent);
-  display: inline-block;
+  width: fit-content;
+  margin-inline: auto;
 }
 
 /* hidden unless the URL carries ?dev — it cannot leak into the graded page */
@@ -809,20 +839,19 @@ a {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--slate);
-  margin-top: 1.25rem;
+  margin: 1.25rem auto 0;
   padding: 0.4rem 0.7rem;
   background: var(--ground-2);
-  display: inline-block;
+  width: fit-content;
 }
 
 .wordcount[hidden] { display: none; }
 
 .wordcount.is-out { color: var(--accent); }
 
-/* ---------- 9. Works Cited ---------- */
-
+/* Works Cited */
 .works-cited {
-  margin-top: 2rem;
+  margin: 2rem auto 0;
   max-width: var(--measure);
 }
 
@@ -856,7 +885,7 @@ a {
   :root {
     --ground: #FFFFFF;
     --ground-2: #FFFFFF;
-    --rule: #B9B5B0;
+    --rule: #9C9892;
   }
 
   html { scroll-behavior: auto; }
@@ -873,6 +902,15 @@ a {
     display: block;
     max-width: none;
     padding: 0;
+  }
+
+  /* backgrounds are usually off in the print dialog, so the band prints
+     as a rule instead of a filled bar */
+  .band {
+    height: 0;
+    background: none;
+    border-top: 2.5pt solid var(--accent);
+    margin-top: 1rem;
   }
 
   .cover {
@@ -900,26 +938,19 @@ a {
 
   .section__title { font-size: 16pt; }
 
-  .section__title, .fngroup__title, .subhead { break-after: avoid; }
+  .section__title, .fncell--label, .mbti { break-after: avoid; }
 
   /* nothing that reads as a unit may be split across a page */
-  .component, .goal, .career, .statement, .pullquote,
-  .fngroup__title, .mbti, .works-cited li, .meta {
+  .fncell, .goal, .statement, .pullquote, .mbti,
+  .works-cited li, .meta, .idol__figure {
     break-inside: avoid;
   }
 
   .prose, .prose--long, .works-cited { max-width: none; }
 
-  /* two across on paper — three columns on a printed page leaves a
-     measure of roughly 25 characters, which is unreadable */
-  .components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-  .component, .goal {
-    border: 1px solid var(--rule);
-    border-top-width: 2px;
-  }
+  /* the label cell loses its tint when backgrounds are off, so it keeps
+     its place in the grid by weight alone */
+  .fncell--label { border-bottom-width: 2pt; }
 
   a { text-decoration: none; color: var(--ink); }
 }

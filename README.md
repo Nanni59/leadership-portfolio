@@ -51,7 +51,7 @@ Search `index.html` for these banner comments:
 | 03 Vision and Mission | `03 - VISION` | two statements side by side, then prose |
 | 04 Goals and Plans | `04 - GOALS` | three cards: Immediate, Medium-range, Long-range |
 | 05 Personal Leadership Development | `05 - PERSONAL` | continuous prose, add `<p>` freely |
-| 06 Management Skills | `06 - MANAGEMENT SKILLS` | 4 groups × 3 components = 12 |
+| 06 Management Skills | `06 - MANAGEMENT SKILLS` | 4 groups × 3 components = 12, each group a 2×2 ruled grid |
 | 07 Leader Idol | `07 - LEADER IDOL` | image slot + prose with in-text citations |
 | 08 Personality Traits | `08 - PERSONALITY` | INTJ-A badge, prose, 5 career cards |
 | 09 Ideal Employer | `09 - IDEAL EMPLOYER` | company name + 250–500 words |
@@ -85,10 +85,26 @@ content slot.
 ### Repeating a block
 
 Need a fourth component under Planning, or a sixth Works Cited entry? Copy one
-existing block. For §06 that is a whole `<article class="component">…</article>`,
-including its three comment markers. The grid handles the rest, though note that
-each function group is designed for three components and a fourth will wrap onto a
-second row.
+existing block. For §06 that is a whole `<article class="fncell component">…</article>`,
+including its numeral and its three comment markers.
+
+One caveat for §06: each group is a 2×2 grid built for exactly one label cell plus
+three components. A fourth component pushes that group to a third row and breaks
+the corner rotation, so the four groups stop reading as a set. If you need a fourth
+example somewhere, add one to every group so they stay balanced — which is also
+what the rubric rewards.
+
+### Design language
+
+Two patterns carry through the whole page, both borrowed from the creative-arts
+site and rebuilt at hairline weight. Keep to them if you add anything:
+
+- **Section header** — centered heading, 1px rule beneath it, theme line, then a
+  10px solid `--accent` band (`<div class="band" aria-hidden="true"></div>`).
+- **Ruled cell grid** — the container draws its top and left border, each cell
+  draws right and bottom. Never put a box around a card. The tinted, centered
+  `.fncell--label` cell anchors a group; in §06 it rotates corner from group to
+  group (`--tl`, `--tr`, `--bl`, `--br`), and in §08 it sits bottom-right.
 
 ## Checking §09's word count
 
