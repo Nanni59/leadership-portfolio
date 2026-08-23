@@ -1,0 +1,925 @@
+/* ============================================================
+   Leadership Portfolio — "Leading by Design"
+   BOH4M. Static CSS, no build step.
+
+   Contents
+     1. Tokens
+     2. Reset and base
+     3. Layout shell
+     4. Section index (nav)
+     5. Cover
+     6. Section shell and rail
+     7. Typography blocks
+     8. Section-specific layouts (03, 04, 06, 07, 08, 09)
+     9. Works Cited
+    10. Focus, motion, print
+   ============================================================ */
+
+/* ---------- 1. Tokens ---------- */
+
+:root {
+  /* palette */
+  --ink:      #14243D;
+  --slate:    #3A4A63;
+  --accent:   #8C2F3D;
+  --ground:   #F5F4F2;
+  --ground-2: #EFEDEA;
+  --body:     #1F2933;
+  --rule:     #D8D5D0;
+
+  /* type families */
+  --display: "Roboto Condensed", "Arial Narrow", system-ui, sans-serif;
+  --text: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* type scale — base 17px, ratio 1.25 */
+  --fs-name: clamp(2.75rem, 7vw, 5.25rem);
+  --fs-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --fs-quote: clamp(1.5rem, 3vw, 2.125rem);
+  --fs-lede: clamp(1.25rem, 2.2vw, 1.5rem);
+  --fs-h3: 1.3125rem;
+  --fs-body: 1.0625rem;
+  --fs-label: 0.75rem;
+  --fs-num: 0.875rem;
+  --fs-nav-num: 1.5rem;
+
+  /* rhythm */
+  --space: 0.5rem;
+  --section-gap: clamp(4.5rem, 9vw, 8rem);
+  --measure: 65ch;
+  --measure-long: 68ch;
+
+  /* structure */
+  --nav-w: 13rem;
+  --rail-w: 8rem;
+  --gutter: 2rem;
+  --bar-h: 4.25rem;
+}
+
+/* ---------- 2. Reset and base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--body);
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, p, dl, dd, figure, blockquote, ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul { list-style: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: var(--ground);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip:focus { left: 0; }
+
+/* ---------- 3. Layout shell ---------- */
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.main { min-width: 0; }
+
+@media (min-width: 64rem) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--nav-w) minmax(0, 1fr);
+    gap: var(--gutter);
+  }
+}
+
+/* ---------- 4. Section index (nav) ---------- */
+/* The numerals are the navigation. Inactive numerals sit in --rule,
+   nearly the background; the active one goes to --ink and is the only
+   item that reveals its label. */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--ground);
+  font-family: var(--display);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding: 0.85rem 0 0.5rem;
+}
+
+.nav__brand-name { font-weight: 700; color: var(--ink); }
+.nav__brand-theme { font-weight: 600; }
+
+.nav__list { display: flex; }
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav__num {
+  font-size: var(--fs-nav-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--rule);
+  transition: color 120ms linear;
+}
+
+.nav__label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--slate);
+}
+
+.nav__link[aria-current="true"] .nav__num { color: var(--ink); }
+
+/* mobile / tablet: sticky top bar, numerals only, horizontally scrollable */
+@media (max-width: 63.99rem) {
+  .nav {
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .nav__list {
+    gap: 1.1rem;
+    overflow-x: auto;
+    padding-bottom: 0.7rem;
+    scrollbar-width: none;
+  }
+
+  .nav__list::-webkit-scrollbar { display: none; }
+
+  .nav__link {
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav__link[aria-current="true"] { border-bottom-color: var(--accent); }
+
+  /* labels are hidden on small screens, except Works Cited, which has
+     no numeral and must stay findable by name */
+  .nav__item:not(.nav__item--wc) .nav__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nav__item--wc .nav__num { display: none; }
+  .nav__item--wc .nav__label { color: var(--rule); }
+  .nav__item--wc .nav__link[aria-current="true"] .nav__label { color: var(--ink); }
+}
+
+/* desktop: fixed-width vertical index */
+@media (min-width: 64rem) {
+  .nav {
+    height: 100vh;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 1rem;
+  }
+
+  .nav__brand { display: none; }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav__item { min-height: 2.5rem; display: flex; align-items: center; }
+
+  .nav__link {
+    position: relative;
+    width: 100%;
+    padding-left: 0.85rem;
+  }
+
+  /* accent tick, only on the active item */
+  .nav__link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: translateY(-50%);
+    transition: width 120ms linear;
+  }
+
+  .nav__link[aria-current="true"]::before { width: 0.55rem; }
+
+  .nav__label {
+    opacity: 0;
+    transition: opacity 120ms linear;
+  }
+
+  .nav__link[aria-current="true"] .nav__label { opacity: 1; }
+
+  .nav__link:hover .nav__num { color: var(--slate); }
+  .nav__link:hover .nav__label { opacity: 1; }
+
+  /* Works Cited: no numeral to carry it, so the label is always visible */
+  .nav__item--wc {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .nav__item--wc .nav__num { color: var(--rule); }
+  .nav__item--wc .nav__label { opacity: 1; color: var(--rule); }
+  .nav__item--wc .nav__link[aria-current="true"] .nav__label,
+  .nav__item--wc .nav__link:hover .nav__label { color: var(--ink); }
+}
+
+/* ---------- 5. Cover ---------- */
+
+.cover {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(1.5rem, 4vh, 2.5rem) 0 1.5rem;
+  scroll-margin-top: var(--bar-h);
+}
+
+.cover__course {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.cover__grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+}
+
+@media (min-width: 44rem) {
+  .cover__grid { grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); }
+}
+
+.portrait {
+  background: var(--ground-2);
+  border-top: 2px solid var(--accent);
+}
+
+.portrait img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+@media (max-width: 43.99rem) {
+  .portrait { width: 60%; }
+}
+
+.cover__name {
+  font-family: var(--display);
+  font-size: var(--fs-name);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.cover__theme {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--accent);
+  display: inline-block;
+}
+
+.cover__tagline {
+  color: var(--slate);
+  max-width: 42ch;
+  margin-top: 0.35rem;
+}
+
+.meta {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.meta__row {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.meta dt {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  min-width: 7rem;
+}
+
+.meta dd { color: var(--ink); }
+
+/* the one-attribute switch for the submission block */
+[data-mode="public"] [data-submission] { display: none; }
+
+.cover__scroll {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.cover__scroll::before {
+  content: "↓";
+  margin-right: 0.5rem;
+}
+
+/* ---------- 6. Section shell and rail ---------- */
+
+.section {
+  border-top: 1px solid var(--rule);
+  padding: var(--section-gap) 0;
+  scroll-margin-top: var(--bar-h);
+}
+
+@media (min-width: 64rem) {
+  .section {
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    gap: var(--gutter);
+    scroll-margin-top: 2rem;
+  }
+}
+
+.section__body { min-width: 0; }
+
+.section__rail {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--display);
+}
+
+@media (min-width: 64rem) {
+  .section__rail {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0;
+  }
+}
+
+.rail__num {
+  font-size: var(--fs-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.rail__label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.rail__sub {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  display: none;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rule);
+  line-height: 1.9;
+}
+
+@media (min-width: 64rem) {
+  .rail__sub { display: block; }
+}
+
+/* ---------- 7. Typography blocks ---------- */
+
+.section__title {
+  font-family: var(--display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.section__title::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+  margin-top: 0.9rem;
+}
+
+/* the theme thread — one marked line under every section heading */
+.section__theme {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 0.9rem;
+  max-width: 46ch;
+  line-height: 1.6;
+}
+
+.subhead {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.lede {
+  font-size: var(--fs-lede);
+  line-height: 1.45;
+  color: var(--ink);
+  max-width: 34ch;
+  margin-top: 2.5rem;
+  text-wrap: pretty;
+}
+
+.prose {
+  max-width: var(--measure);
+  margin-top: 2rem;
+}
+
+.prose--long { max-width: var(--measure-long); }
+
+.prose p + p { margin-top: 1.15rem; }
+
+.prose p { text-wrap: pretty; }
+
+/* 02 — pull quote */
+.pullquote {
+  margin-top: 2.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--accent);
+  max-width: 30ch;
+}
+
+.pullquote blockquote p {
+  font-family: var(--display);
+  font-size: var(--fs-quote);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.pullquote figcaption {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 1rem;
+}
+
+/* ---------- 8. Section-specific layouts ---------- */
+
+/* 03 — vision and mission */
+.statements {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 40rem) {
+  .statements { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+
+.statement {
+  padding-top: 1rem;
+  border-top: 2px solid var(--ink);
+}
+
+.statement__label {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 0.65rem;
+}
+
+.statement__text {
+  color: var(--body);
+  text-wrap: pretty;
+}
+
+/* 04 — goals */
+.goals {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 46rem) {
+  .goals { grid-template-columns: repeat(3, 1fr); }
+}
+
+.goal {
+  background: var(--ground-2);
+  border-top: 2px solid var(--accent);
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.goal__range {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.goal__title {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0.4rem 0 0.75rem;
+}
+
+/* 06 — management skills.
+   Every function group is a full-width row. Three components each,
+   equal width, so no function reads as under-developed. */
+.fngroup {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.fngroup__title {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.components {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 58rem) {
+  .components { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.component {
+  background: var(--ground-2);
+  border-top: 1px solid var(--accent);
+  padding: 1.1rem 1.1rem 1.35rem;
+}
+
+.component__title {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.component__cat {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin: 0.35rem 0 0.75rem;
+}
+
+.component__text { font-size: 1rem; }
+
+/* 07 — leader idol */
+.idol {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 46rem) {
+  .idol { grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr); }
+}
+
+.idol__figure { background: var(--ground-2); border-top: 2px solid var(--accent); }
+
+.idol__figure img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.idol__figure figcaption {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding: 0.75rem 0.85rem 1rem;
+  line-height: 1.5;
+}
+
+.idol__body { margin-top: 0; }
+
+/* 08 — personality */
+.mbti {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  margin-top: 2.5rem;
+}
+
+.mbti__type {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--ink);
+  padding-right: 1rem;
+  border-right: 2px solid var(--accent);
+}
+
+.mbti__label {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.careers {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 58rem) {
+  .careers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.career {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--rule);
+}
+
+.career__title {
+  font-family: var(--display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.career p { font-size: 1rem; }
+
+/* 09 — ideal employer */
+.employer {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-top: 2.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+/* hidden unless the URL carries ?dev — it cannot leak into the graded page */
+.wordcount {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-top: 1.25rem;
+  padding: 0.4rem 0.7rem;
+  background: var(--ground-2);
+  display: inline-block;
+}
+
+.wordcount[hidden] { display: none; }
+
+.wordcount.is-out { color: var(--accent); }
+
+/* ---------- 9. Works Cited ---------- */
+
+.works-cited {
+  margin-top: 2rem;
+  max-width: var(--measure);
+}
+
+.works-cited li {
+  text-indent: -2em;
+  padding-left: 2em;
+  line-height: 2;
+  margin-bottom: 0.6rem;
+}
+
+/* ---------- 10. Focus, motion, print ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media print {
+  @page { margin: 18mm 16mm; }
+
+  :root {
+    --ground: #FFFFFF;
+    --ground-2: #FFFFFF;
+    --rule: #B9B5B0;
+  }
+
+  html { scroll-behavior: auto; }
+
+  body {
+    background: #fff;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .nav, .skip, .cover__scroll, .wordcount { display: none !important; }
+
+  .layout {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .cover {
+    min-height: 0;
+    padding: 0 0 1.5rem;
+    break-after: page;
+  }
+
+  .cover__name { font-size: 32pt; }
+
+  .portrait { width: 45mm; }
+
+  .section {
+    display: block;
+    padding: 1.25rem 0;
+    break-inside: auto;
+  }
+
+  .section__rail {
+    position: static;
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+  }
+
+  .section__title { font-size: 16pt; }
+
+  .section__title, .fngroup__title, .subhead { break-after: avoid; }
+
+  /* nothing that reads as a unit may be split across a page */
+  .component, .goal, .career, .statement, .pullquote,
+  .fngroup__title, .mbti, .works-cited li, .meta {
+    break-inside: avoid;
+  }
+
+  .prose, .prose--long, .works-cited { max-width: none; }
+
+  /* two across on paper — three columns on a printed page leaves a
+     measure of roughly 25 characters, which is unreadable */
+  .components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .component, .goal {
+    border: 1px solid var(--rule);
+    border-top-width: 2px;
+  }
+
+  a { text-decoration: none; color: var(--ink); }
+}
