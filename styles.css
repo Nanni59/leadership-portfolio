@@ -387,7 +387,6 @@ body::after {
 
 .cover {
   position: relative;
-  overflow: clip;
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -398,16 +397,19 @@ body::after {
   scroll-margin-top: var(--bar-h);
 }
 
-/* the one large glow */
+/* The one large glow. Its box stays inside the content column and the
+   gradient reaches full transparency before the edge, so nothing needs to
+   clip it - clipping is what produced the hard vertical and horizontal
+   cut-offs. */
 .cover__glow {
   position: absolute;
   z-index: -2;
-  top: -12%;
-  right: -16%;
-  width: min(76vw, 58rem);
+  top: -14%;
+  right: 0;
+  width: min(70vw, 52rem);
   aspect-ratio: 1 / 1;
-  background: radial-gradient(circle, rgba(255, 227, 79, 0.8), rgba(255, 227, 79, 0) 66%);
-  filter: blur(34px);
+  background: radial-gradient(circle, rgba(255, 227, 79, 0.7), rgba(255, 227, 79, 0) 68%);
+  filter: blur(26px);
   pointer-events: none;
 }
 
@@ -422,7 +424,8 @@ body::after {
   font-family: var(--display);
   font-size: var(--fs-name);
   font-weight: 400;
-  line-height: 0.86;
+  /* Anton's caps are tall; below ~0.95 the three stacked lines collide */
+  line-height: 0.96;
   letter-spacing: -0.005em;
   text-transform: uppercase;
 }
@@ -477,8 +480,8 @@ body::after {
   border-radius: var(--r-md);
   padding: 0.9rem 0.9rem 0.7rem;
   box-shadow: var(--shadow);
-  transform: rotate(var(--rot, 0deg));
-  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
+  transform: rotate(var(--rot, 0deg)) translate(var(--tx, 0), var(--ty, 0)) scale(var(--sc, 1));
+  transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
   animation: cardIn 520ms var(--ease) both;
 }
 
@@ -543,20 +546,24 @@ body::after {
 .hcard__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-sm); }
 
 /* signature interaction */
+/* Each card keeps its own angle; only position and scale move, which is
+   what stops the stack lurching. The card under the pointer lifts forward. */
 @media (hover: hover) {
-  .cluster:hover .hcard--a { transform: rotate(-10deg) translate(-7%, -6%); }
-  .cluster:hover .hcard--b { transform: rotate(8deg) translate(7%, -6%); }
-  .cluster:hover .hcard--c { transform: rotate(7deg) translate(-7%, 6%); }
-  .cluster:hover .hcard--d { transform: rotate(-8deg) translate(7%, 6%); }
-  .cluster:hover .hcard--photo { transform: rotate(0deg) scale(1.04); }
+  .cluster:hover .hcard--a { --tx: -4%; --ty: -4%; }
+  .cluster:hover .hcard--b { --tx: 4%; --ty: -4%; }
+  .cluster:hover .hcard--c { --tx: -4%; --ty: 4%; }
+  .cluster:hover .hcard--d { --tx: 4%; --ty: 4%; }
+  .cluster:hover .hcard--photo { --sc: 1.03; }
   .cluster:hover .hcard { box-shadow: var(--shadow-lift); }
+
+  .hcard:hover { --sc: 1.05; z-index: 10; }
 }
 
-.cluster:focus-visible .hcard--a { transform: rotate(-10deg) translate(-7%, -6%); }
-.cluster:focus-visible .hcard--b { transform: rotate(8deg) translate(7%, -6%); }
-.cluster:focus-visible .hcard--c { transform: rotate(7deg) translate(-7%, 6%); }
-.cluster:focus-visible .hcard--d { transform: rotate(-8deg) translate(7%, 6%); }
-.cluster:focus-visible .hcard--photo { transform: rotate(0deg) scale(1.04); }
+.cluster:focus-visible .hcard--a { --tx: -4%; --ty: -4%; }
+.cluster:focus-visible .hcard--b { --tx: 4%; --ty: -4%; }
+.cluster:focus-visible .hcard--c { --tx: -4%; --ty: 4%; }
+.cluster:focus-visible .hcard--d { --tx: 4%; --ty: 4%; }
+.cluster:focus-visible .hcard--photo { --sc: 1.03; }
 
 /* narrow: a plain reading order, no overlap over text */
 @media (max-width: 42rem) {
@@ -1157,8 +1164,10 @@ body::after {
     animation: none !important;
   }
 
-  .hcard { opacity: 1; transform: rotate(var(--rot, 0deg)); }
-  .cluster:hover .hcard, .cluster:focus-visible .hcard { transform: rotate(var(--rot, 0deg)); }
+  .hcard { opacity: 1; }
+  .cluster:hover .hcard, .cluster:focus-visible .hcard, .hcard:hover {
+    --tx: 0; --ty: 0; --sc: 1;
+  }
 }
 
 @media print {
