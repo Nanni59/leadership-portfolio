@@ -5,11 +5,12 @@ no build step, no dependencies except Google Fonts. Deploys to GitHub Pages by
 pushing files.
 
 ```
-index.html            all markup, all content, the icon sprite
+index.html            all markup, all content
 styles.css            tokens, layouts, print stylesheet
-script.js             nav highlighting, entrance reveals, dev word counter
-assets/icons/         nine original SVG icons (source files)
-ASSETS.md             asset manifest, licences, and the two missing photographs
+script.js             nav highlighting and the dev word counter, nothing else
+assets/icons/         nine Chunk interface icons (used as CSS masks)
+assets/illustrations/ eight pictograms, one per compositional slot
+ASSETS.md             asset manifest: authors, licences, source URLs
 CONTENT-CHECKLIST.md  tick these off before submitting
 .nojekyll             stops GitHub Pages running Jekyll on the files
 ```
@@ -43,15 +44,17 @@ That should come back empty before you submit.
 ## The visual system
 
 **An editorial canvas with a dark rail.** Warm canvas `#F6F4EE` carries the whole
-portfolio, over a 28px technical grid and a very light grain. The navigation is a
-dark ink rail bleeding to the left viewport edge. Exactly one section — the Laozi
-quotation — inverts to a full ink field, which is what makes it land.
+portfolio, over a 32px square grid, a light local grain, one large yellow glow
+behind the cover, and a thin inset page frame on screens above 1024px. The
+navigation is a dark ink rail bleeding to the left viewport edge. Exactly one
+section — the Laozi quotation — inverts to a full ink field.
 
-**Colour.** Ink `#111318` for text and rules. Luminous yellow `#FFE34F` for the
-cover glow, the active nav indicator, the MBTI badge, and illustration accents.
-Ultramarine `#5367FF` for section numbers and functional icons; small text on
-canvas uses the deeper `#3B4FE0`, because the lighter value only reaches 4:1 and
-fails at body size.
+**Colour.** Ink `#0B0E1D` for text, `#5D626D` for secondary, `#D9DCDF` for borders,
+white for raised surfaces. Luminous yellow `#FFE34F` for the cover glow, the
+active nav indicator and the MBTI badge. Ultramarine `#5367FF` for large numerals
+and icons; anything small switches to `#3B4FE0`, because the lighter value only
+reaches 4:1 on canvas and fails at body size. One radius scale (6/12/18px) and
+one shadow recipe across the whole page.
 
 **Type, three families with three jobs.**
 
@@ -61,18 +64,20 @@ fails at body size.
 | Instrument Serif | reflective text *only* — philosophy statement, the quotation, vision and mission |
 | Inter | body copy, labels, navigation |
 
-**Illustration.** One family, seven drawings: single-weight ink line over one flat
-accent shape. Four on the cover cluster, one per chapter transition. Nothing
-scattered — the small functional icons stay small and do label work only. See
-ASSETS.md.
+**Illustration.** Eight colourful pictograms from one SVG Repo collection, each
+used once at 140–220px: four on the cover cluster, one per chapter transition,
+one beside the employer mark. Nine Chunk interface icons do label work at 20px,
+implemented as CSS masks so they inherit `currentColor`. Both families are stored
+locally and credited in the footer — see ASSETS.md.
 
 **No panels.** Sections sit directly on the canvas, separated by rules and space
 rather than repeated rounded cards. Cards appear once, in the cover cluster,
 which is what makes them read as a signature rather than a template.
 
-**Motion.** Almost none. No entrance animations at all. The two interactions are
-the cover cluster spreading on hover or keyboard focus, and the nav indicator
-tracking your scroll. Both respect `prefers-reduced-motion`.
+**Motion.** Two patterns only: a staggered entrance for the five cover cards
+(opacity and transform, so no layout shifts), and the cover cluster spreading on
+hover or keyboard focus alongside the nav indicator tracking your scroll. No
+reveal-on-scroll anywhere. Everything is disabled under `prefers-reduced-motion`.
 
 ## Section layouts
 
@@ -127,9 +132,9 @@ index.html?dev
 ```
 
 A counter appears under the company name showing the count and the target,
-turning orange when you fall outside 250–500. Bracketed placeholders and the
-three structural pillar labels are excluded, so it counts only your prose.
-Currently **426 words**.
+inverting to ink-on-yellow when you fall outside 250–500. Bracketed placeholders
+and the three structural pillar labels are excluded, so it counts only your
+prose. Currently **426 words**.
 
 Without `?dev` the counter does not render at all, so it cannot appear in the
 graded version or in front of an employer.
@@ -148,14 +153,15 @@ it off:
 
 ## Printing to PDF
 
-The print stylesheet is the backup submission format, and it does real work here:
-the dark design collapses entirely to white paper with hairline rules, because a
-dark page is unreadable printed and ruinous on toner.
+The print stylesheet is the backup submission format, and it does real work here.
+The grid, grain, glow and page frame all switch off, the ink quotation panel and
+every tinted surface go to white, the decorative card overlap flattens into a
+plain row, and the icons follow their text to solid black.
 
 Ctrl+P in Chrome or Edge, destination *Save as PDF*, background graphics **off**,
 margins default. The nav and word counter are hidden, the cover takes its own
-page, entrance reveals are forced visible, and no card, timeline stage, quadrant
-item, career card, or Works Cited entry can break across a page.
+page, each chapter starts a new page, and no heading is left stranded from the
+paragraph beneath it.
 
 Browsers do not support CSS page numbers, so if you need them, turn on *Headers
 and footers* in the print dialog.
