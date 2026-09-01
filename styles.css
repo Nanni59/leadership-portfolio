@@ -35,7 +35,9 @@
 :root {
   /* surfaces */
   --canvas:     #E6E8E6;
-  --surface:    #F8F9F8;
+  --surface:    #EFF1EF;
+  /* pure white, only where a tint would cost contrast on the accent */
+  --paper:      #FFFFFF;
   --ink:        #080708;
   --ink-2:      #4D4C50;
   --ink-3:      #72757A;
@@ -169,7 +171,6 @@ a:hover { color: var(--signal); }
 }
 
 .eyebrow--ultra { color: var(--ultra-deep); }
-.eyebrow--spaced { margin: 3.5rem 0 1.25rem; }
 
 /* ---------- 3. Atmosphere ---------- */
 
@@ -546,7 +547,8 @@ body::after {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   background: var(--signal);
-  color: var(--surface);
+  /* not --surface: an off-white here drops the tag to 4.11:1 on the red */
+  color: var(--paper);
   padding: 0.4rem 0.75rem;
   border-radius: var(--r-sm);
   margin-top: 1.25rem;
@@ -1546,6 +1548,22 @@ blockquote p { font-weight: 400; }
   overflow: hidden;
 }
 
+/* The section's label, moved inside the table as a header row spanning every
+   column. Ink against the off-white body is what stops the table reading as a
+   plain white-on-grey grid. */
+.careers__caption {
+  padding: 0.95rem 1.25rem;
+  background: var(--ink);
+  color: var(--canvas);
+  font-family: var(--ui);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.careers__list { display: grid; }
+
 .career {
   counter-increment: career;
   display: grid;
@@ -1841,6 +1859,7 @@ blockquote p { font-weight: 400; }
 
   /* the careers table stays one column so its three columns keep their room */
   .careers { grid-template-columns: 1fr; border: 1px solid #999; border-radius: 0; }
+  .careers__caption { background: none !important; color: #000 !important; border-bottom: 1px solid #999; }
   .career + .career { border-top-color: #999; }
   .career::before, .career__title { border-right-color: #999; }
   .career::before { background: none !important; }
