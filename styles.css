@@ -836,7 +836,14 @@ body::after {
 .shead__num {
   grid-column: 1 / 3;
   grid-row: 1 / span 2;
-  align-self: start;
+  /* centred on the title and its subtitle together, not hung off the top of
+     the title. The nudge compensates for the two rows' line boxes: the title
+     sets at line-height 1 and the subtitle at 1.6, so the visible text sits
+     higher in the span than the span's own centre, and centring the numeral
+     on the span alone leaves it low. The em term tracks the numeral as it
+     scales; the pixel term is the subtitle's fixed leading. */
+  align-self: center;
+  transform: translateY(calc(-0.068em - 1.7px));
   font-family: var(--display);
   font-size: var(--fs-snum);
   line-height: 0.8;
