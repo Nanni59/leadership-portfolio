@@ -561,17 +561,11 @@ body::after {
 
 .cluster {
   position: relative;
-  /* Taller than wide on purpose. On a square the two rows of cards sat close
-     enough together that the portrait spanning the middle covered the
-     "Systems" and "Technology" captions. The extra height separates the rows
-     so the portrait clears every caption.
-     The captions are a fixed pixel height while the cards scale with the
-     cluster, so the ratio is set for the narrowest width this layout ever
-     runs at (~431px, just past the cover breakpoint); wider is only safer.
-     Because each caption sits at the foot of its card, a portrait that
-     clears the upper captions cannot also overlap the upper cards; it
-     layers over the lower pair instead. */
-  aspect-ratio: 1 / 1.24;
+  /* The four supporting cards are absolutely positioned; the portrait is the
+     one card left in flow, so the grid centres it and nothing has to know how
+     tall it is. */
+  display: grid;
+  aspect-ratio: 1 / 1;
   width: 100%;
   max-width: 31rem;
   margin-inline: auto;
@@ -588,12 +582,29 @@ body::after {
   padding: 0.9rem 0.9rem 0.7rem;
   box-shadow: var(--shadow);
   transform: rotate(var(--rot, 0deg)) translate(var(--tx, 0), var(--ty, 0)) scale(var(--sc, 1));
-  transition: transform 460ms var(--ease-soft), box-shadow 460ms var(--ease-soft);
+  /* z-index is listed so it can be held. It flips in one step, but the step
+     is delayed on the way out: a hovered card used to drop behind its
+     neighbours the instant the pointer left, while its own scale-down was
+     still waiting out the fan's stagger and then easing for 460ms. Falling
+     behind while still enlarged is what read as a flicker where two cards
+     overlap. 620ms outlasts the slowest exit (120ms stagger + 460ms ease). */
+  transition-property: transform, box-shadow, z-index;
+  transition-duration: 460ms, 460ms, 0s;
+  transition-timing-function: var(--ease-soft), var(--ease-soft), linear;
+  transition-delay: 0ms, 0ms, 620ms;
   /* 'backwards', not 'both': a forwards fill keeps applying the animation's
      transform after it ends, which swallows the hover change. */
   animation: cardIn 520ms var(--ease) backwards;
   will-change: transform;
 }
+
+/* The upper pair label above their illustration and the lower pair below, so
+   every caption faces out of the cluster and the middle band is free. That is
+   what lets the portrait sit dead centre and still overlap all four cards:
+   with all four captions at the foot of their card, a centred portrait could
+   only ever touch the others by the caption's own bottom padding. */
+.hcard--a, .hcard--b { display: flex; flex-direction: column-reverse; }
+.hcard--a figcaption, .hcard--b figcaption { margin-top: 0; margin-bottom: 0.55rem; }
 
 .hcard figcaption {
   font-size: 0.6875rem;
@@ -612,17 +623,12 @@ body::after {
 
 .hcard--photo {
   --rot: -2deg;
+  position: relative;
+  place-self: center;
   width: 43%;
-  /* below the upper captions, above the lower ones */
-  top: 40%;
-  left: 28.5%;
   z-index: 5;
-  background: var(--ink);
-  border-color: var(--ink);
   animation-delay: 300ms;
 }
-
-.hcard--photo figcaption { color: var(--canvas); }
 
 @keyframes cardIn {
   from { opacity: 0; transform: rotate(var(--rot, 0deg)) translateY(18px); }
@@ -634,17 +640,19 @@ body::after {
 /* Each card keeps its own angle; only position and scale move, which is
    what stops the stack lurching. The card under the pointer lifts forward. */
 @media (hover: hover) {
-  .cluster:hover .hcard--a { --tx: -4%; --ty: -4%; transition-delay: 0ms; }
-  .cluster:hover .hcard--b { --tx: 4%; --ty: -4%; transition-delay: 40ms; }
-  .cluster:hover .hcard--c { --tx: -4%; --ty: 4%; transition-delay: 80ms; }
-  .cluster:hover .hcard--d { --tx: 4%; --ty: 4%; transition-delay: 120ms; }
-  .cluster:hover .hcard--photo { --sc: 1.03; transition-delay: 60ms; }
+  /* the third value keeps the z-index hold; a bare transition-delay here
+     would collapse it to the stagger and undo the fix above */
+  .cluster:hover .hcard--a { --tx: -4%; --ty: -4%; transition-delay: 0ms, 0ms, 620ms; }
+  .cluster:hover .hcard--b { --tx: 4%; --ty: -4%; transition-delay: 40ms, 40ms, 620ms; }
+  .cluster:hover .hcard--c { --tx: -4%; --ty: 4%; transition-delay: 80ms, 80ms, 620ms; }
+  .cluster:hover .hcard--d { --tx: 4%; --ty: 4%; transition-delay: 120ms, 120ms, 620ms; }
+  .cluster:hover .hcard--photo { --sc: 1.03; transition-delay: 60ms, 60ms, 620ms; }
   .cluster:hover .hcard { box-shadow: var(--shadow-lift); }
 
   /* The card under the pointer answers immediately, ahead of the fan. Needs
      to match the specificity of the .cluster:hover rules above, or their
      stagger delay would apply to this response too. */
-  .cluster .hcard:hover { --sc: 1.05; z-index: 10; transition-delay: 0ms; }
+  .cluster .hcard:hover { --sc: 1.05; z-index: 10; transition-delay: 0ms, 0ms, 0ms; }
 }
 
 .cluster:focus-visible .hcard--a { --tx: -4%; --ty: -4%; }
@@ -670,7 +678,11 @@ body::after {
     box-shadow: var(--shadow);
   }
 
-  .hcard--photo { grid-column: span 2; order: -1; }
+  .hcard--photo { grid-column: span 2; order: -1; place-self: stretch; }
+
+  /* no overlap here, so every card labels below its illustration */
+  .hcard--a, .hcard--b { display: block; }
+  .hcard--a figcaption, .hcard--b figcaption { margin-top: 0.55rem; margin-bottom: 0; }
 
   /* Full width, a 4:5 portrait runs over 400px tall and pushes the cover past
      one and a half screens. A square keeps the face large but shorter, and the
