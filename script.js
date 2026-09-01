@@ -44,9 +44,22 @@
 
       current.link.setAttribute("aria-current", "true");
 
-      // keep the active numeral in view in the horizontal mobile bar
+      // Keep the active numeral centred in the horizontal mobile bar without
+      // asking the browser to scroll the link itself into view. scrollIntoView
+      // can also move the document vertically and interrupt anchor jumps.
       if (navList && navList.scrollWidth > navList.clientWidth + 1) {
-        current.link.scrollIntoView({ block: "nearest", inline: "center" });
+        // offsetLeft is measured from the link's offsetParent, which is the
+        // bar rather than the scrolling list, so it carries the list's own
+        // inset. Measure inside the scroller instead.
+        var offsetInList =
+          current.link.getBoundingClientRect().left -
+          navList.getBoundingClientRect().left +
+          navList.scrollLeft;
+
+        var left =
+          offsetInList + current.link.offsetWidth / 2 - navList.clientWidth / 2;
+
+        navList.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
       }
     }
 

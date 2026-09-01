@@ -2,7 +2,7 @@
    Leadership Portfolio — light editorial canvas
    BOH4M. Static CSS, no build step.
 
-   Warm paper canvas, fine square grid, restrained grain, one large
+   Alabaster canvas, fine square grid, restrained grain, one large
    yellow glow, thin page frame on large screens. Anton for oversized
    display, Instrument Serif for reflective statements, Inter for
    reading. One radius scale, one shadow recipe.
@@ -34,22 +34,28 @@
 
 :root {
   /* surfaces */
-  --canvas:     #F6F4EE;
-  --surface:    #FFFFFF;
-  --ink:        #0B0E1D;
-  --ink-2:      #5D626D;
-  --ink-3:      #8A8F9C;
-  --border:     #D9DCDF;
+  --canvas:     #E6E8E6;
+  --surface:    #F8F9F8;
+  --ink:        #080708;
+  --ink-2:      #4D4C50;
+  --ink-3:      #72757A;
+  --border:     #C7CAC7;
 
   /* accents — the illustration palette, echoed only in small doses */
-  --glow:       #FFE34F;
-  --ultra:      #5367FF;   /* graphic use and large type */
-  --ultra-deep: #3B4FE0;   /* small text: #5367FF only reaches 4:1 on canvas */
+  --glow:       #FDCA40;
+  --ultra:      #3772FF;   /* graphic use and large type */
+  --ultra-deep: #2458D8;   /* darker companion for small text on alabaster */
+  --signal:     #DF2935;   /* sparing emphasis and interaction only */
 
   /* type */
   --display: "Anton", "Arial Narrow", "Helvetica Neue", sans-serif;
   --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
   --ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Reading text. Oswald is the condensed sibling of Anton, so paragraphs
+     carry the title face's character, but unlike Anton it has real light
+     weights - Anton ships only one, and that one is a headline weight. */
+  --read: "Oswald", "Anton", "Arial Narrow", sans-serif;
+  --read-weight: 300;
 
   /* sized so the longest word ("MUHAMMAD" in heavy condensed caps) still
      fits the cover's half-column at every width */
@@ -60,22 +66,39 @@
   --fs-manifesto: clamp(1.75rem, 4.2vw, 3.125rem);
   --fs-quote: clamp(1.625rem, 4vw, 2.875rem);
   --fs-body: 1.0625rem;
-  --fs-small: 0.9375rem;
+  /* Two reading sizes, not four. Oswald is condensed, so it needs more
+     size than Inter did to read at the same comfort. */
+  --fs-read: 1.1875rem;    /* running prose */
+  --fs-small: 1.0625rem;   /* dense blocks: cards, list items, captions */
   --fs-label: 0.75rem;
 
   /* one radius scale, one shadow recipe */
   --r-sm: 6px;
   --r-md: 12px;
   --r-lg: 18px;
-  --shadow: 0 18px 38px -18px rgba(11, 14, 29, 0.32), 0 2px 6px rgba(11, 14, 29, 0.06);
-  --shadow-lift: 0 26px 48px -20px rgba(11, 14, 29, 0.38), 0 2px 6px rgba(11, 14, 29, 0.06);
+  --shadow: 0 18px 38px -18px rgba(8, 7, 8, 0.3), 0 2px 6px rgba(8, 7, 8, 0.06);
+  --shadow-lift: 0 26px 48px -20px rgba(8, 7, 8, 0.36), 0 2px 6px rgba(8, 7, 8, 0.06);
 
   /* rhythm */
-  --measure: 68ch;
+  /* The assignment uses the full available section width so its required
+     long-form content does not create an unnecessarily tall page. */
+  --measure: 100%;
+  --measure-narrow: 100%;
+  --reading-max: 48rem;
+  --page-max: 75rem;
+  --grid-gap: clamp(1rem, 2.2vw, 2rem);
   --pad: 1.5rem;
-  --nav-w: 13.5rem;
+  --nav-w: 3.75rem;
+  --nav-col: 1.75rem;   /* numeral column - what the rail centres on */
   --gutter: 3rem;
-  --bar-h: 4.5rem;
+
+  /* One vertical rhythm. Every gap between blocks is a step on this
+     scale - before this the section grids used 0, 1.5, 1.75, 2, 2.5 and
+     3rem for structurally identical spacing. */
+  --sp-tight: 1.5rem;
+  --sp-block: 2rem;
+  --sp-flow: 3rem;
+  --bar-h: 5.125rem;
   --sec-y: clamp(3.5rem, 7vw, 6rem);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   /* long, gentle settle for the cover cluster */
@@ -116,7 +139,7 @@ em { font-style: italic; }
 
 a { color: var(--ultra-deep); text-underline-offset: 0.15em; }
 
-a:hover { color: var(--ink); }
+a:hover { color: var(--signal); }
 
 .skip {
   position: absolute;
@@ -136,6 +159,8 @@ a:hover { color: var(--ink); }
 .skip:focus { left: 0; }
 
 .eyebrow {
+  font-family: var(--ui);   /* stated, not inherited: otherwise a reading-text
+                               rule in any container silently claims it */
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -155,8 +180,8 @@ body::before {
   inset: 0;
   z-index: -3;
   background-image:
-    linear-gradient(to right, rgba(11, 14, 29, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(11, 14, 29, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(8, 7, 8, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(8, 7, 8, 0.045) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
 }
@@ -173,22 +198,27 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.13'/%3E%3C/svg%3E");
 }
 
-/* thin inset page frame, large screens only */
-@media (min-width: 64rem) {
-  html::before {
-    content: "";
-    position: fixed;
-    inset: 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--r-sm);
-    pointer-events: none;
-    z-index: 60;
-  }
-}
 
 /* ---------- 4. Layout shell ---------- */
 
-.layout { max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
+/* One page container owns the maximum width and horizontal page padding. */
+.page-container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* One grid utility is reused by sections and their major internal layouts. */
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+}
+
+.page-grid > * { grid-column: 1 / -1; }
+
+.layout { min-width: 0; }
 
 .main { min-width: 0; }
 
@@ -198,6 +228,11 @@ body::after {
     grid-template-columns: var(--nav-w) minmax(0, 1fr);
     gap: var(--gutter);
   }
+
+  /* The rail is position:fixed, so it is out of flow and the first column is
+     an empty spacer holding its width. Main must be placed explicitly - left
+     to auto-placement it would fall into that spacer and be crushed. */
+  .main { grid-column: 2; }
 }
 
 /* ---------- 5. Navigation rail ---------- */
@@ -234,14 +269,15 @@ body::after {
   color: var(--ink-3);
 }
 
-.nav__chapter span {
+.nav__chapter span:first-child {
   font-family: var(--display);
   color: var(--glow);
-  margin-right: 0.5rem;
+  margin-right: 0.55rem;   /* matches .nav__link gap, so every word shares one axis */
   letter-spacing: 0.06em;
 }
 
 .nav__link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -285,7 +321,7 @@ body::after {
   .nav__link { padding-bottom: 0.3rem; border-bottom: 2px solid transparent; }
   .nav__link[aria-current="true"] { border-bottom-color: var(--glow); }
 
-  .nav__item:not(.nav__item--wc) .nav__label {
+  .nav__item:not(.nav__item--bookend) .nav__label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -294,8 +330,9 @@ body::after {
     white-space: nowrap;
   }
 
-  .nav__item--wc .nav__num { display: none; }
-  .nav__item--wc .nav__link[aria-current="true"] .nav__label { color: var(--glow); }
+  /* Bookends (Title, Works Cited) keep their word and drop the dot. */
+  .nav__item--bookend .nav__num { display: none; }
+  .nav__item--bookend .nav__link[aria-current="true"] .nav__label { color: var(--glow); }
 }
 
 @media (min-width: 64rem) {
@@ -305,52 +342,96 @@ body::after {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 1rem 0 1.5rem;
-    margin-left: calc(-1 * var(--pad));
+    padding: 0 0.5rem;
+
+    /* Pinned to the window, not to the centred grid. The grid used to set
+       where the rail started, so on a wide screen the centring margin became
+       rail and the numerals sat right of the band they were sitting in. Fixed
+       at left 0, the band is exactly --nav-w at every viewport and the numerals
+       centre in it. The grid column stays behind as a spacer, so the reading
+       column is where it always was. */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--nav-w);
+    margin-left: 0;
+    transition: width 260ms var(--ease);
   }
 
-  .nav::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 0 -100vw;
-    background: var(--ink);
-    z-index: -1;
-  }
+  /* The rail itself widens now. It is out of flow, so nothing can reflow. */
+  .nav:hover,
+  .nav:focus-within { width: calc(var(--nav-w) + 10rem); transition-delay: 120ms; }
 
   .nav__brand { display: none; }
 
-  .nav__list { flex-direction: column; gap: 0; }
+  .nav__list { flex-direction: column; gap: 0; flex: 0 0 auto; }
 
-  .nav__chapter { display: block; margin: 1.1rem 0 0.45rem; }
-  .nav__chapter:first-child { margin-top: 0; }
+  .nav__chapter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 1.25rem;
+    line-height: 1;
+    margin: 1.1rem 0 0.45rem;
+    padding-left: calc((var(--nav-w) - 1rem - var(--nav-col)) / 2);
+  }
+  .nav__chapter:first-child,
+  .nav__item--title + .nav__chapter { margin-top: 0; }
 
   .nav__item { min-height: 2.15rem; display: flex; align-items: center; }
 
-  .nav__link { position: relative; width: 100%; padding-left: 1.35rem; }
-
-  .nav__link::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--glow);
-    transform: translateY(-50%);
-    transition: width 240ms var(--ease);
+  /* Fixed padding, not centred content: the numerals must not drift sideways
+     when the rail opens. The column is what centres, so 01, the dot and III
+     all sit on the same axis whatever their width. */
+  .nav__link {
+    position: relative;
+    width: 100%;
+    padding-left: calc((var(--nav-w) - 1rem - var(--nav-col)) / 2);
   }
 
-  .nav__link[aria-current="true"]::before { width: 0.85rem; }
+  .nav__num,
+  .nav__chapter span:first-child { width: var(--nav-col); text-align: center; }
+  .nav__chapter span:first-child {
+    display: block;
+    flex: 0 0 var(--nav-col);
+    margin-right: 0;
+  }
 
-  .nav__label { opacity: 0; transition: opacity 240ms var(--ease); }
-  .nav__link[aria-current="true"] .nav__label { opacity: 1; color: var(--canvas); }
+  .nav__link:hover .nav__num { color: var(--canvas); }
 
-  .nav__link:hover .nav__num,
-  .nav__link:hover .nav__label { color: var(--canvas); opacity: 1; }
+  /* At rest the rail is numerals only. Labels are positioned outside normal
+     flow, so revealing them cannot wrap a chapter, change a row height or
+     recenter the list. Hover therefore changes only the rail width and label
+     visibility; every title keeps exactly the same vertical position. */
+  .nav__label,
+  .nav__chapter-name {
+    position: absolute;
+    left: calc((var(--nav-w) - 1rem - var(--nav-col)) / 2 + var(--nav-col) + 0.55rem);
+    width: auto;
+    opacity: 0;
+    color: var(--canvas);
+    pointer-events: none;
+    transition: opacity 240ms var(--ease);
+  }
 
-  .nav__item--wc { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid rgba(246, 244, 238, 0.18); }
-  .nav__item--wc .nav__label { opacity: 1; }
-  .nav__item--wc .nav__link[aria-current="true"] .nav__label { color: var(--glow); }
+  .nav__chapter-name { display: block; white-space: nowrap; }
+
+  /* Opened by pointing anywhere at the rail, or by tabbing into it. The short
+     delay means crossing the rail on the way to the page does not open it. */
+  .nav:hover .nav__label,
+  .nav:focus-within .nav__label,
+  .nav:hover .nav__chapter-name,
+  .nav:focus-within .nav__chapter-name {
+    opacity: 1;
+    transition-delay: 120ms;
+  }
+
+  /* The two unnumbered bookends sit outside the chapters, ruled off from
+     them. At rest they are just their dot; the rules are what say that
+     something bookends the nine. */
+  .nav__item--title { margin-bottom: 1.1rem; padding-bottom: 0.9rem; border-bottom: 1px solid rgba(230, 232, 230, 0.18); }
+  .nav__item--wc { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid rgba(230, 232, 230, 0.18); }
+  .nav__item--bookend .nav__link[aria-current="true"] .nav__label { color: var(--glow); }
 }
 
 /* ---------- 6. Icons and pictograms ---------- */
@@ -377,13 +458,24 @@ body::after {
 .i--arrow-right { --icon: url("assets/icons/arrow-right.svg"); }
 .i--image       { --icon: url("assets/icons/image.svg"); }
 
+.icon-asset {
+  display: block;
+  object-fit: contain;
+}
+
 /* Pictograms: the only large illustration family. Each is used once and
    given a compositional job, never scattered as decoration. */
 .pict { width: 100%; height: auto; }
 
 .pict--card { max-width: 9.5rem; margin: 0 auto; }
-.pict--chapter { max-width: 13.75rem; margin-inline: auto; }
-.pict--employer { max-width: 8.75rem; flex: none; }
+.pict--chapter {
+  width: 88%;
+  height: 88%;
+  max-width: none;
+  margin: 0;
+  object-fit: contain;
+}
+.pict--employer { max-width: 8.75rem; }
 
 /* ---------- 7. Cover + card cluster ---------- */
 
@@ -410,14 +502,18 @@ body::after {
   right: 0;
   width: min(70vw, 52rem);
   aspect-ratio: 1 / 1;
-  background: radial-gradient(circle, rgba(255, 227, 79, 0.7), rgba(255, 227, 79, 0) 68%);
+  background: radial-gradient(circle, rgba(253, 202, 64, 0.62), rgba(253, 202, 64, 0) 68%);
   filter: blur(26px);
   pointer-events: none;
 }
 
 .cover__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 
-@media (min-width: 56rem) {
+/* The cover splits into two columns only once each column can still hold the
+   card cluster at close to full size. Splitting at 56rem dropped the cluster
+   from 496px to 394px in one step, which squeezed the cards together and put
+   the portrait back over the captions. */
+@media (min-width: 68rem) {
   .cover__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 
@@ -450,8 +546,8 @@ body::after {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  background: var(--glow);
-  color: var(--ink);
+  background: var(--signal);
+  color: var(--surface);
   padding: 0.4rem 0.75rem;
   border-radius: var(--r-sm);
   margin-top: 1.25rem;
@@ -460,13 +556,23 @@ body::after {
 .cover__tagline {
   font-size: clamp(1.0625rem, 1.7vw, 1.1875rem);
   color: var(--ink-2);
-  max-width: 44ch;
+  max-width: 33ch;
   margin-top: 1rem;
 }
 
 .cluster {
   position: relative;
-  aspect-ratio: 1 / 1;
+  /* Taller than wide on purpose. On a square the two rows of cards sat close
+     enough together that the portrait spanning the middle covered the
+     "Systems" and "Technology" captions. The extra height separates the rows
+     so the portrait clears every caption.
+     The captions are a fixed pixel height while the cards scale with the
+     cluster, so the ratio is set for the narrowest width this layout ever
+     runs at (~431px, just past the cover breakpoint); wider is only safer.
+     Because each caption sits at the foot of its card, a portrait that
+     clears the upper captions cannot also overlap the upper cards; it
+     layers over the lower pair instead. */
+  aspect-ratio: 1 / 1.24;
   width: 100%;
   max-width: 31rem;
   margin-inline: auto;
@@ -508,7 +614,8 @@ body::after {
 .hcard--photo {
   --rot: -2deg;
   width: 43%;
-  top: 28%;
+  /* below the upper captions, above the lower ones */
+  top: 40%;
   left: 28.5%;
   z-index: 5;
   background: var(--ink);
@@ -529,7 +636,7 @@ body::after {
   justify-content: center;
   gap: 0.3rem;
   aspect-ratio: 4 / 5;
-  border: 1.5px dashed rgba(255, 227, 79, 0.55);
+  border: 1.5px dashed rgba(253, 202, 64, 0.55);
   border-radius: var(--r-sm);
   color: var(--glow);
   text-align: center;
@@ -621,17 +728,30 @@ body::after {
 /* ---------- 8. Chapters ---------- */
 
 .chapter {
-  display: grid;
-  gap: 1.5rem;
+  min-height: clamp(18rem, 34vw, 24rem);
   align-items: center;
-  padding: clamp(3.5rem, 8vw, 6rem) 0 clamp(2rem, 4vw, 3rem);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
   border-top: 2px solid var(--ink);
 }
 
+.chapter__text { grid-column: 1 / -1; align-self: center; }
+
+.chapter__icon {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  width: clamp(9rem, 16vw, 13.75rem);
+  aspect-ratio: 1;
+  justify-self: center;
+  align-self: center;
+}
+
 @media (min-width: 52rem) {
-  .chapter { grid-template-columns: minmax(0, 1fr) minmax(0, 0.5fr); gap: 3rem; }
-  .chapter--flip .chapter__text { order: 2; }
-  .chapter--flip .pict--chapter { order: 1; }
+  .chapter__text { grid-column: 1 / 8; }
+  .chapter__icon { grid-column: 9 / 13; }
+
+  .chapter--flip .chapter__text { grid-column: 6 / 13; }
+  .chapter--flip .chapter__icon { grid-column: 1 / 5; grid-row: 1; }
 }
 
 .chapter__num {
@@ -663,22 +783,49 @@ body::after {
 
 /* ---------- 9. Section headings and prose ---------- */
 
-.section { padding: var(--sec-y) 0; scroll-margin-top: var(--bar-h); }
+.section {
+  padding-block: var(--sec-y);
+  scroll-margin-top: var(--bar-h);
+  row-gap: var(--sp-flow);
+  align-content: start;
+}
 
-@media (min-width: 64rem) { .section { scroll-margin-top: 1.5rem; } }
+.section > .shead,
+.section > .prose,
+.section > .caveat,
+.section > .columns,
+.section > .manifesto,
+.section > .eyebrow,
+.section > .works-cited { margin: 0; }
+
+.reading-column.reading-column {
+  width: 100%;
+  max-width: none;
+}
+
+@media (min-width: 52rem) {
+  .section > .reading-column {
+    grid-column: 1 / 13;
+    justify-self: start;
+  }
+}
+
+@media (min-width: 64rem) {
+  .section { scroll-margin-top: 1.5rem; }
+}
 
 .shead {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0 1.25rem;
-  align-items: baseline;
+  align-items: end;
+  row-gap: 0.6rem;
   padding-bottom: 0.85rem;
   border-bottom: 2px solid var(--ink);
-  margin-bottom: clamp(2rem, 4vw, 3rem);
+  margin: 0;
 }
 
 .shead__num {
-  grid-row: span 2;
+  grid-column: 1 / 3;
+  grid-row: 1 / span 2;
+  align-self: start;
   font-family: var(--display);
   font-size: var(--fs-snum);
   line-height: 0.8;
@@ -686,6 +833,8 @@ body::after {
 }
 
 .shead__title {
+  grid-column: 3 / 13;
+  grid-row: 1;
   font-family: var(--display);
   font-size: var(--fs-stitle);
   font-weight: 400;
@@ -695,61 +844,247 @@ body::after {
 }
 
 .shead__theme {
-  grid-column: 2;
+  grid-column: 3 / 13;
+  grid-row: 2;
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-2);
-  margin-top: 0.6rem;
+  margin-top: 0;
   max-width: 54ch;
   line-height: 1.6;
 }
 
 .shead--center { text-align: center; justify-items: center; }
-.shead--onink { border-bottom-color: rgba(246, 244, 238, 0.22); }
+.shead--onink { border-bottom-color: rgba(230, 232, 230, 0.22); }
 .shead--onink .shead__num { color: var(--glow); }
 .shead--onink .shead__title { color: var(--canvas); }
 .shead--onink .shead__theme { color: var(--ink-3); }
 .shead--quiet .shead__num { color: var(--ink-3); }
 .shead--quiet .shead__title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); }
 
-.prose { max-width: var(--measure); margin-top: 1.75rem; }
+/* The reading face sits on the container too, not just its paragraphs, so
+   that `ch` in --measure is measured in the font actually being read.
+   Left on Inter it was sizing the column in a wider font than the one
+   filling it, and 68ch of Inter held 105 characters of Oswald. */
+.prose {
+  max-width: var(--measure);
+  margin-top: 1.75rem;
+  font-size: var(--fs-read);
+  font-family: var(--read);
+  font-weight: var(--read-weight);
+}
 .prose p + p { margin-top: 1.2rem; }
-.prose p { text-wrap: pretty; }
-.prose--narrow { max-width: 58ch; margin-inline: auto; }
-.prose--long { max-width: 70ch; margin-top: 0; }
-.prose--onink { color: rgba(246, 244, 238, 0.88); }
 
-/* ---------- 10. 01 manifesto + columns ---------- */
+.prose p { text-wrap: pretty; }
+
+/* ---- Reading text face --------------------------------------------------
+   Every block of running prose on the page, listed explicitly rather than
+   swept up with a bare `p, li` rule: the UI labels (.eyebrow, .item__cat,
+   figcaption, dt and friends) are also p and li elements and inherit their
+   family, so a blanket rule would silently set tracked uppercase labels in a
+   light condensed face. Missing something here leaves it in Inter, which is
+   merely inconsistent; catching a label by accident looks broken.
+   The containers are wrapped in :where() so they contribute no specificity:
+   the rule lands at (0,0,1), one plain element. That matters because the
+   labels and display type living inside these containers - .eyebrow in a
+   .tstage, .casestudy__name in an aside, .pillar in .prose, the serif
+   .manifesto and .statement__text - are all single classes at (0,1,0), and so
+   each one now outranks this and keeps its own face without being named here.
+   Written as plain `.tstage p` this rule would be (0,1,1) and would quietly
+   swallow every one of them. ---------------------------------------------- */
+:where(.prose, .career, .col, .tstage, .casestudy__aside, .colophon) p,
+:where(.works-cited) li,
+:where(.prose, .metastrip) dd,
+:where(.prose) blockquote,
+blockquote,
+.item__text,
+.casestudy__role,
+.caveat,
+.cover__tagline {
+  font-family: var(--read);
+  font-weight: var(--read-weight);
+}
+
+/* Anton and Instrument Serif ship a single 400. Anything that overrides the
+   family above still inherits its 300, which resolves to 400 today but would
+   render light the day either face gains weights. Pin them. */
+.pillar, .casestudy__name, .col__num,
+.manifesto, .statement__text,
+blockquote p { font-weight: 400; }
+/* Both modifiers used to set their own `ch` width, which landed at 432px and
+   521px beside the 496px standard - three reading widths on one page. They
+   now share the one measure; the modifiers stay for their other styling. */
+.prose--narrow { max-width: var(--measure-narrow); }
+.prose--long { max-width: var(--measure); margin-top: 0; }
+.prose--onink { color: rgba(230, 232, 230, 0.9); }
+
+/* ---------- 10. 01 philosophy: principle, evidence, growth edge ---------- */
+
+.philosophy-thesis {
+  position: relative;
+  display: grid;
+  gap: var(--sp-block);
+  align-items: center;
+  padding: clamp(0.5rem, 2vw, 1.5rem) 0;
+}
+
+@media (min-width: 52rem) {
+  .shead__num { grid-column: 1 / 2; }
+  .shead__title { grid-column: 2 / 13; }
+  .shead__theme { grid-column: 2 / 10; }
+}
+
+.philosophy-thesis__copy { min-width: 0; }
+
+.philosophy-thesis__label {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ultra-deep);
+}
+
+.philosophy-thesis__label::before {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: 0 0 auto;
+  background: var(--glow);
+  transform: rotate(45deg);
+}
 
 .manifesto {
   font-family: var(--serif);
   font-size: var(--fs-manifesto);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  max-width: 24ch;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  max-width: 30ch;
   text-wrap: balance;
 }
 
-.columns { display: grid; gap: 2rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.manifesto__focus {
+  background: linear-gradient(transparent 78%, rgba(253, 202, 64, 0.8) 78%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 
-@media (min-width: 52rem) {
-  .columns { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
-  .col { padding-inline: 1.75rem; border-left: 1px solid var(--border); }
-  .col:first-child { padding-left: 0; border-left: 0; }
-  .col:last-child { padding-right: 0; }
+.philosophy-thesis__mark {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: clamp(8rem, 14vw, 10rem);
+  aspect-ratio: 1;
+  justify-self: start;
+  transform: rotate(2deg);
+}
+
+.philosophy-thesis__mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--glow);
+  clip-path: polygon(8% 0, 100% 7%, 92% 100%, 0 91%);
+}
+
+.philosophy-thesis__mark img {
+  width: 38%;
+  height: auto;
+  transform: rotate(-2deg);
+}
+
+.philosophy-thesis__mark span {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  width: max-content;
+  max-width: 82%;
+  transform: translateX(-50%) rotate(-2deg);
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.columns {
+  display: grid;
+  gap: var(--sp-block);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.col { min-width: 0; }
+
+.col__head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .col__num {
   font-family: var(--display);
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 1;
   color: var(--ultra);
-  margin-bottom: 0.85rem;
 }
 
-.col p:not(.col__num) { font-size: var(--fs-small); }
+.col__label {
+  font-family: var(--ui) !important;
+  font-size: var(--fs-label) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.col__icon {
+  width: 1.45rem;
+  height: 1.45rem;
+  object-fit: contain;
+}
+
+.col > p { font-size: var(--fs-small); text-wrap: pretty; }
+
+.col--edge {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: rgba(253, 202, 64, 0.28);
+  border-radius: var(--r-md);
+}
+
+.col--edge .col__num { color: var(--ink); }
+.col--edge .col__label { color: var(--ink); }
+
+@media (min-width: 52rem) {
+  .philosophy-thesis__copy { grid-column: 1 / 10; }
+  .philosophy-thesis__mark { grid-column: 10 / 13; justify-self: center; }
+
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2.5rem, 5vw, 4.5rem);
+    row-gap: var(--sp-flow);
+  }
+
+  .col--edge {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.65fr) minmax(0, 1.85fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .col--edge .col__head { margin-bottom: 0; }
+}
 
 /* ---------- 11. 02 ink break ---------- */
 
@@ -757,12 +1092,12 @@ body::after {
   background: var(--ink);
   color: var(--canvas);
   border-radius: var(--r-lg);
-  margin-inline: calc(-1 * var(--pad));
+  margin-inline: 0;
   padding: clamp(3.5rem, 8vw, 6rem) var(--pad);
 }
 
 @media (min-width: 64rem) {
-  .section--ink { margin-inline: 0; padding-inline: clamp(2rem, 5vw, 4rem); }
+  .section--ink { padding-inline: clamp(2rem, 5vw, 4rem); }
 }
 
 .pullquote { text-align: center; max-width: 24ch; margin: 0 auto; }
@@ -787,15 +1122,71 @@ body::after {
 
 .pullquote figcaption em { text-transform: none; letter-spacing: 0.06em; }
 
-/* ---------- 12. 03 linked statements ---------- */
-
-.linked { display: grid; gap: 1.75rem; align-items: start; }
+.quote-analysis__label { color: var(--glow); }
 
 @media (min-width: 52rem) {
-  .linked { grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1fr); gap: 2rem; }
+  #s02 > .pullquote {
+    grid-column: 1 / 6;
+    align-self: start;
+    justify-self: center;
+    margin: 0;
+  }
+
+  #s02 > .quote-analysis {
+    grid-column: 6 / 13;
+    align-self: start;
+    margin: 0;
+    padding-inline-start: var(--grid-gap);
+    border-left: 1px solid rgba(230, 232, 230, 0.2);
+  }
 }
 
-.statement { border-top: 3px solid var(--ink); padding-top: 1rem; }
+/* ---------- 12. 03 linked statements ---------- */
+
+.linked {
+  display: grid;
+  gap: var(--sp-block);
+  align-items: stretch;
+  padding: 0.5rem 0;
+}
+
+.statement {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem 0 1.75rem;
+}
+
+.statement::before {
+  position: absolute;
+  top: 0.15rem;
+  right: 0;
+  font-family: var(--display);
+  font-size: clamp(4rem, 8vw, 6.5rem);
+  line-height: 1;
+  color: rgba(55, 114, 255, 0.1);
+  pointer-events: none;
+}
+
+.statement:first-child::before { content: "01"; }
+.statement:last-child::before { content: "02"; }
+
+.statement > * { position: relative; z-index: 1; }
+
+.statement .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.statement .eyebrow::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  background: var(--ink);
+}
+
+.statement:last-child .eyebrow::before { background: var(--ultra); }
 
 .statement__text {
   font-family: var(--serif);
@@ -808,13 +1199,11 @@ body::after {
 .linked__path {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.25rem 0 1rem;
   color: var(--ink-2);
-  padding-top: 1.5rem;
 }
-
-@media (min-width: 52rem) { .linked__path { flex-direction: column; } }
 
 .linked__cap {
   font-size: 0.625rem;
@@ -826,19 +1215,79 @@ body::after {
 
 .icon--path { color: var(--ultra); }
 
-@media (min-width: 52rem) { .icon--path { transform: rotate(90deg); } }
+.direction-analysis {
+  padding: 0.5rem 0 0;
+}
+
+.direction-analysis__label {
+  color: var(--ultra-deep);
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.direction-analysis__label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.5rem;
+  height: 4px;
+  background: var(--glow);
+}
+
+@media (min-width: 52rem) {
+  .linked {
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    grid-template-areas:
+      "vision path"
+      "vision mission";
+    column-gap: clamp(2.5rem, 5vw, 4rem);
+    row-gap: 0;
+    padding: 2rem 0;
+  }
+
+  .statement:first-child {
+    grid-area: vision;
+    padding: 1rem clamp(2rem, 4vw, 3.5rem) 1rem 0;
+  }
+
+  .statement:first-child .statement__text {
+    font-size: clamp(1.55rem, 2.4vw, 2rem);
+    line-height: 1.22;
+  }
+
+  .statement:last-child {
+    grid-area: mission;
+    padding: 1rem 0 0;
+  }
+
+  .linked__path {
+    grid-area: path;
+    align-self: start;
+    padding-top: 0;
+  }
+
+  .direction-analysis {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    gap: var(--sp-block);
+    align-items: start;
+  }
+
+  .direction-analysis p + p { margin-top: 0; }
+}
 
 /* ---------- 13. 04 timeline ---------- */
 
 .timeline { display: grid; gap: 2rem; position: relative; }
 
 @media (min-width: 52rem) {
-  .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-block); }
 
   .timeline::before {
     content: "";
     position: absolute;
-    top: 0.35rem;
+    top: 1rem;
     left: 0;
     right: 0;
     height: 2px;
@@ -861,6 +1310,23 @@ body::after {
 
 .tstage__icon { color: var(--ultra); margin-bottom: 0.75rem; }
 
+@media (min-width: 52rem) {
+  .tstage { padding-top: 3rem; }
+
+  .tstage__dot { top: 0.575rem; }
+
+  .tstage__icon {
+    position: absolute;
+    top: 0.25rem;
+    left: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 0.45rem var(--canvas);
+  }
+}
+
 .tstage__title {
   font-family: var(--display);
   font-size: 1.375rem;
@@ -874,12 +1340,34 @@ body::after {
 
 /* ---------- 14. 05 essay stages ---------- */
 
-.essay { display: grid; gap: 2.75rem; }
+.essay {
+  position: relative;
+  display: grid;
+  gap: var(--sp-flow);
+}
 
-.essay__stage { display: grid; gap: 0.75rem 1.75rem; align-items: start; }
+.essay::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 1.125rem;
+  inset-block: 0;
+  width: 1px;
+  background: rgba(55, 114, 255, 0.32);
+}
 
-@media (min-width: 46rem) {
-  .essay__stage { grid-template-columns: 3.5rem minmax(0, 1fr); }
+.essay__stage {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.essay__marker {
+  position: relative;
+  z-index: 1;
+  background: var(--canvas);
+  box-shadow: 0 0 0 0.35rem var(--canvas);
 }
 
 .essay__marker {
@@ -890,7 +1378,7 @@ body::after {
   text-transform: uppercase;
   padding-top: 0.4rem;
   border-top: 3px solid var(--ink);
-  width: 2.5rem;
+  width: 2.25rem;
 }
 
 /* ---------- 15. 06 quadrants ---------- */
@@ -899,7 +1387,7 @@ body::after {
 .quadrants { display: grid; gap: 1.25rem; }
 
 @media (min-width: 60rem) {
-  .quadrants { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .quadrants { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-tight); }
 }
 
 .quadrant {
@@ -918,7 +1406,12 @@ body::after {
   border-bottom: 1px solid var(--border);
 }
 
-.quadrant__icon { color: var(--ultra); }
+.quadrant__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 1.5rem;
+  color: var(--ultra);
+}
 
 .quadrant__title {
   font-family: var(--display);
@@ -927,13 +1420,6 @@ body::after {
   line-height: 1;
   text-transform: uppercase;
   flex: 1;
-}
-
-.quadrant__count {
-  font-family: var(--display);
-  font-size: 0.875rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-2);
 }
 
 .item + .item {
@@ -945,17 +1431,17 @@ body::after {
 .item__title {
   display: flex;
   gap: 0.65rem;
-  align-items: baseline;
+  align-items: center;
   font-size: 1.0625rem;
   font-weight: 700;
   line-height: 1.35;
 }
 
-.item__num {
-  font-family: var(--display);
-  font-size: 0.9375rem;
+.item__icon {
+  width: 1.25rem;
+  height: 1.25rem;
   color: var(--ultra-deep);
-  flex: none;
+  flex: 0 0 1.25rem;
 }
 
 .item__cat {
@@ -976,13 +1462,21 @@ body::after {
 
 /* ---------- 16. 07 case study ---------- */
 
-.casestudy { display: grid; gap: 2rem; }
-
-@media (min-width: 52rem) {
-  .casestudy { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 3rem; }
+.casestudy {
+  row-gap: var(--sp-block);
+  align-items: start;
 }
 
-.casestudy__aside { align-self: start; }
+@media (min-width: 52rem) {
+  .casestudy__aside { grid-column: 1 / 4; }
+  .casestudy__body { grid-column: 4 / 13; }
+}
+
+.casestudy__aside,
+.casestudy__body {
+  align-self: start;
+  padding-block-start: 0;
+}
 
 .initials {
   display: flex;
@@ -997,7 +1491,27 @@ body::after {
   line-height: 1;
 }
 
-.casestudy__img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--r-md); }
+.casestudy__portrait { margin: 0; }
+
+.casestudy__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--r-md);
+}
+
+.casestudy__credit {
+  margin-top: 0.5rem;
+  font-family: var(--ui);
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.casestudy__credit a { color: inherit; }
 
 .casestudy__name {
   font-family: var(--display);
@@ -1010,6 +1524,7 @@ body::after {
 .casestudy__role { font-size: var(--fs-small); color: var(--ink-2); margin-top: 0.25rem; }
 
 .casestudy__body { margin-top: 0; }
+.casestudy__body > p:first-child { margin-top: 0; }
 
 /* ---------- 17. 08 badge, careers, caveat ---------- */
 
@@ -1064,31 +1579,36 @@ body::after {
 /* ---------- 18. 09 employer + pillars ---------- */
 
 .employer-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.employer {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
-  flex: 1 1 18rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 3px solid var(--ultra);
+  align-items: end;
+  row-gap: 0.85rem;
 }
 
 .employer__name {
+  grid-column: 1 / 9;
+  grid-row: 1;
   font-family: var(--display);
   font-size: clamp(2rem, 4.5vw, 3rem);
   line-height: 1;
   text-transform: uppercase;
 }
 
+.employer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.employer__logo {
+  width: clamp(2rem, 4.2vw, 2.75rem);
+  height: auto;
+  flex: none;
+}
+
 .employer__place {
+  grid-column: 1 / 9;
+  grid-row: 2;
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -1096,25 +1616,44 @@ body::after {
   color: var(--ink-2);
 }
 
+.employer__rule {
+  grid-column: 1 / 9;
+  grid-row: 3;
+  height: 3px;
+  background: var(--ultra);
+}
+
+.employer-row .pict--employer {
+  grid-column: 9 / 13;
+  grid-row: 1 / 4;
+  justify-self: end;
+  align-self: center;
+}
+
+@media (min-width: 52rem) {
+  .employer__name { grid-column: 1 / 7; grid-row: 1; }
+  .employer__place { grid-column: 7 / 10; grid-row: 1; }
+  .employer__rule { grid-column: 1 / 10; grid-row: 2; }
+  .employer-row .pict--employer { grid-column: 10 / 13; grid-row: 1 / 3; }
+}
+
 .pillar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
   font-family: var(--display);
   font-size: 1.0625rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ultra-deep);
-  margin-top: 2rem !important;
-  padding-left: 2rem;
-  position: relative;
+  margin-top: 2rem;
 }
 
-.pillar::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.65em;
-  width: 1.35rem;
-  height: 2px;
-  background: var(--ultra-deep);
+.pillar__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 1.25rem;
+  color: var(--ultra-deep);
 }
 
 .prose .pillar + p { margin-top: 0.45rem; }
@@ -1161,7 +1700,7 @@ body::after {
 
 /* ---------- 20. Focus, motion, print ---------- */
 
-:focus-visible { outline: 3px solid var(--ultra); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
 .section--ink :focus-visible, .nav :focus-visible { outline-color: var(--glow); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1192,7 +1731,7 @@ body::after {
   }
 
   /* atmosphere and chrome off */
-  body::before, body::after, html::before, .cover__glow { display: none !important; }
+  body::before, body::after, .cover__glow { display: none !important; }
   .nav, .skip, .wordcount { display: none !important; }
 
   .layout { display: block; max-width: none; padding: 0; }
@@ -1217,7 +1756,8 @@ body::after {
   .chapter__num, .career::before, .pullquote figcaption { color: #000 !important; }
 
   .chapter__num { -webkit-text-stroke: 0; }
-  .timeline::before, .employer { border-color: #999 !important; background: none !important; }
+  .timeline::before { border-color: #999 !important; background: none !important; }
+  .employer__rule { background: #999 !important; }
 
   /* icons are masks of currentColor, so they follow the text to black */
   .i { background-color: #000 !important; }
@@ -1254,7 +1794,7 @@ body::after {
 
   /* never split a heading from what follows it */
   .shead, .quadrant__head, .item__title, .tstage__title, .chapter__name,
-  .chapter__text, .employer, .career__title, .pillar {
+  .chapter__text, .employer__name, .career__title, .pillar {
     break-after: avoid;
   }
 

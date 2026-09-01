@@ -8,17 +8,17 @@
 <meta name="color-scheme" content="light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Oswald:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260901-1">
 </head>
 
-<!-- data-mode="submission" shows the instructor/date block on the cover.
+<!-- data-mode="submission" shows the cover submission block.
      Change to data-mode="public" to hide it after the mark comes back. -->
 <body data-mode="submission">
 
 <a class="skip" href="#cover">Skip to content</a>
 
-<div class="layout">
+<div class="layout page-container">
 
   <!-- ============================================================
        SECTION INDEX — dark rail, numerals grouped by chapter.
@@ -30,19 +30,20 @@
       <span class="nav__brand-theme">Leading by Design</span>
     </p>
     <ol class="nav__list">
-      <li class="nav__chapter" aria-hidden="true"><span>I</span>Foundation</li>
+      <li class="nav__item nav__item--bookend nav__item--title"><a class="nav__link" data-nav-link href="#cover"><span class="nav__num" aria-hidden="true">&middot;</span><span class="nav__label">Title</span></a></li>
+      <li class="nav__chapter" aria-hidden="true"><span>I</span><span class="nav__chapter-name">Foundation</span></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s01"><span class="nav__num">01</span><span class="nav__label">Philosophy</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s02"><span class="nav__num">02</span><span class="nav__label">Quote</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s03"><span class="nav__num">03</span><span class="nav__label">Vision &amp; Mission</span></a></li>
-      <li class="nav__chapter" aria-hidden="true"><span>II</span>Practice</li>
+      <li class="nav__chapter" aria-hidden="true"><span>II</span><span class="nav__chapter-name">Practice</span></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s04"><span class="nav__num">04</span><span class="nav__label">Goals &amp; Plans</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s05"><span class="nav__num">05</span><span class="nav__label">Development</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s06"><span class="nav__num">06</span><span class="nav__label">Management</span></a></li>
-      <li class="nav__chapter" aria-hidden="true"><span>III</span>Direction</li>
+      <li class="nav__chapter" aria-hidden="true"><span>III</span><span class="nav__chapter-name">Direction</span></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s07"><span class="nav__num">07</span><span class="nav__label">Leader Idol</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s08"><span class="nav__num">08</span><span class="nav__label">Personality</span></a></li>
       <li class="nav__item"><a class="nav__link" data-nav-link href="#s09"><span class="nav__num">09</span><span class="nav__label">Ideal Employer</span></a></li>
-      <li class="nav__item nav__item--wc"><a class="nav__link" data-nav-link href="#works-cited"><span class="nav__num" aria-hidden="true">&middot;</span><span class="nav__label">Works Cited</span></a></li>
+      <li class="nav__item nav__item--bookend nav__item--wc"><a class="nav__link" data-nav-link href="#works-cited"><span class="nav__num" aria-hidden="true">&middot;</span><span class="nav__label">Works Cited</span></a></li>
     </ol>
   </nav>
 
@@ -53,7 +54,7 @@
        The portrait is the front card of the cluster, so the cover
        reads as composed whether or not the photograph is in yet.
        ============================================================ -->
-  <header class="cover" id="cover">
+  <header class="cover page-grid" id="cover">
     <div class="cover__glow" aria-hidden="true"></div>
 
     <div class="cover__grid">
@@ -61,10 +62,7 @@
         <h1 class="cover__name">Muhammad<br>Ibrahim<br>Sameer</h1>
         <p class="cover__course">BOH4M — Business Leadership: Management Fundamentals</p>
         <p class="cover__theme">Leading by Design</p>
-        <!-- OUTSTANDING: cover tagline - one line, your leadership thesis.
-             Suggested basis from your notes: leadership exercised by building
-             systems that make other people's work easier. -->
-        <p class="cover__tagline">[one-line tagline]</p>
+        <p class="cover__tagline">Designing systems that help people work with confidence.</p>
       </div>
 
       <!-- signature interaction: the cluster spreads on hover / focus -->
@@ -105,70 +103,68 @@
       </div>
     </div>
 
-    <!-- ============================================================
-         SUBMISSION BLOCK - required for grading, remove afterward.
-         Either delete everything down to END SUBMISSION BLOCK, or set
-         <body data-mode="public"> at the top of this file. Deleting is
-         the real removal; the attribute only hides it from the page.
-         ============================================================ -->
-    <dl class="metastrip" data-submission>
-      <div class="metastrip__row">
-        <dt>Instructor</dt>
-        <dd>Mr. Steven Mesaros</dd>
-      </div>
-      <div class="metastrip__row">
-        <dt>Submitted</dt>
-        <!-- OUTSTANDING: submission date -->
-        <dd>[date]</dd>
-      </div>
-      <div class="metastrip__row">
-        <dt>Components</dt>
-        <dd>Nine, in three chapters</dd>
-      </div>
-    </dl>
-    <!-- END SUBMISSION BLOCK -->
   </header>
 
   <!-- ============================================================
        CHAPTER I — FOUNDATION (components 01-03)
        ============================================================ -->
   <section class="chgroup" aria-labelledby="ch1-name">
-    <div class="chapter">
+    <div class="chapter page-grid">
       <div class="chapter__text">
         <p class="chapter__num" aria-hidden="true">I</p>
         <h2 class="chapter__name" id="ch1-name">Foundation</h2>
         <p class="chapter__meta">Components 01 &ndash; 03</p>
       </div>
-      <img class="pict pict--chapter" src="assets/illustrations/diamond.svg" alt="" aria-hidden="true" width="256" height="256" loading="lazy">
+      <div class="chapter__icon" aria-hidden="true">
+        <img class="pict pict--chapter" src="assets/illustrations/diamond.svg" alt="" width="256" height="256" loading="lazy">
+      </div>
     </div>
 
   <!-- ============================================================
        01 - LEADERSHIP PHILOSOPHY
        ============================================================ -->
-  <section class="section" id="s01" aria-labelledby="s01-title">
-    <div class="shead">
+  <section class="section page-grid" id="s01" aria-labelledby="s01-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">01</p>
       <h3 class="shead__title" id="s01-title">Leadership Philosophy</h3>
-      <!-- OUTSTANDING: §1 theme line - one line on how "Leading by Design" applies here -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Leadership begins by designing the conditions in which others can succeed.</p>
     </div>
 
-    <p class="manifesto">Leadership is the work of designing systems that make other people's work easier, rather than relying on authority to direct them.</p>
+    <div class="philosophy-thesis page-grid">
+      <div class="philosophy-thesis__copy">
+        <p class="philosophy-thesis__label">Operating principle</p>
+        <p class="manifesto">Leadership is the work of <span class="manifesto__focus">designing systems that make other people's work easier</span>, rather than relying on authority to direct them.</p>
+      </div>
+      <div class="philosophy-thesis__mark" aria-hidden="true">
+        <img src="assets/icons/layers.svg" alt="" width="800" height="800">
+        <span>Design the conditions</span>
+      </div>
+    </div>
 
-    <!-- Three evidence columns = your three paragraphs, unchanged. Numbered
-         rather than labelled: a worded label would be my characterisation
-         of your writing. -->
+    <!-- Two demonstrated examples followed by one explicitly unresolved edge. -->
     <div class="columns">
       <article class="col">
-        <p class="col__num" aria-hidden="true">01</p>
-        <p>When I asked for the delay, I was unsure how my advisor would respond or whether the request would even be accepted. My first attempt had been to simply study for the test, but I realized I was memorizing material without understanding the logic behind it. I chose to use time that could have gone toward exam preparation to rebuild my understanding of the subject instead. I went back to the fundamentals and worked my way up through practice problems. Strengthening my understanding of algebra gave me the foundation to move into functions, and when I began using Desmos, I realized there was more to functions than simply solving equations. Graphs could show how a function behaved and help predict information from a problem rather than only produce an answer.</p>
+        <header class="col__head">
+          <p class="col__num" aria-hidden="true">01</p>
+          <p class="col__label">Academic decision</p>
+          <img class="col__icon" src="assets/icons/education.svg" alt="" aria-hidden="true" width="800" height="800">
+        </header>
+        <p>When I asked my advisor to delay the test, I chose understanding over short-term preparation. I had been memorizing procedures without understanding their logic, so I returned to algebra fundamentals and rebuilt my knowledge through practice. That foundation helped me progress into functions, where tools such as Desmos showed me that graphs can explain behaviour and support prediction, not merely produce an answer. The experience taught me to address the structure of a problem instead of hiding it with a temporary result.</p>
       </article>
       <article class="col">
-        <p class="col__num" aria-hidden="true">02</p>
-        <p>During my internship at Mindstreams Education, the problem was not that its document process was broken, but that there was no system in place for automating documents issued by staff. Because I was unfamiliar with UK law, I researched the relevant legal requirements before building the system. Designing those requirements into the process from the start mattered because a system created without GDPR compliance could have required significant changes or even rebuilding later. I brought my findings to the company's owner, who has a background in computer engineering, and she adjusted sections based on her knowledge of the business. We then reviewed the system together before publishing it on the website.</p>
+        <header class="col__head">
+          <p class="col__num" aria-hidden="true">02</p>
+          <p class="col__label">System design</p>
+          <img class="col__icon" src="assets/icons/layers.svg" alt="" aria-hidden="true" width="800" height="800">
+        </header>
+        <p>During my internship at Mindstreams Education, I found that staff had no automated system for issuing documents. Before building one, I researched the relevant UK legal requirements and treated GDPR compliance as a design constraint. I then presented my findings to the company's owner, whose technical and business knowledge helped refine the process. We reviewed the system together before publication. The experience showed me that leadership can mean preparing a sound structure, inviting informed challenge, and improving the design before asking others to rely on it.</p>
       </article>
-      <article class="col">
-        <p class="col__num" aria-hidden="true">03</p>
+      <article class="col col--edge">
+        <header class="col__head">
+          <p class="col__num" aria-hidden="true">03</p>
+          <p class="col__label">Development edge</p>
+          <img class="col__icon" src="assets/icons/gauge.svg" alt="" aria-hidden="true" width="800" height="800">
+        </header>
         <p>I have explained ideas and concepts to people who were interested and willing to learn. However, I have never had to lead someone who was disengaged from the work or opposed to what I was trying to accomplish. In every context I have worked in so far, the people involved already wanted the outcome, so I have never had to create motivation where it was not already present.</p>
       </article>
     </div>
@@ -177,12 +173,11 @@
   <!-- ============================================================
        02 - LEADERSHIP QUOTE — the one ink-field break
        ============================================================ -->
-  <section class="section section--ink" id="s02" aria-labelledby="s02-title">
-    <div class="shead shead--onink shead--center">
+  <section class="section section--ink page-grid" id="s02" aria-labelledby="s02-title">
+    <div class="shead page-grid shead--onink">
       <p class="shead__num" aria-hidden="true">02</p>
       <h3 class="shead__title" id="s02-title">Leadership Quote</h3>
-      <!-- OUTSTANDING: §2 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">The strongest influence leaves people capable, not dependent.</p>
     </div>
 
     <figure class="pullquote">
@@ -192,34 +187,22 @@
       <figcaption>Laozi, <em>Tao Te Ching</em>, ch. 17, translated by James Legge</figcaption>
     </figure>
 
-    <div class="prose prose--onink prose--narrow">
-      <p>What struck me about this passage was the idea that meaningful work can be almost completely invisible. A person can shape an outcome without the people benefiting from it ever knowing who was behind it.</p>
+    <div class="prose prose--onink prose--narrow quote-analysis">
+      <p class="eyebrow quote-analysis__label">Interpretation</p>
+      <p>What struck me about this passage was the idea that meaningful work can be almost completely invisible. At Mindstreams Education, the company's owner worked directly with tutors while I supported the process in the background. I made technical changes, solved problems, and adjusted the system so tutors could continue their work more easily, even though they did not know who had created the improvements.</p>
 
-      <!-- ============================================================
-           PENDING YOUR EDIT — §2 explanation paragraph 2.
-           Injected verbatim from your draft, NOT rewritten. Two changes
-           you flagged and still need to make yourself:
-             1. "my aunt" appears twice - rename to Mindstreams Education
-                and "the company's owner".
-             2. The invisibility point is made three times (sentences 2,
-                3 and 6). Trim to roughly two-thirds this length.
-           ============================================================ -->
-      <p>That idea reminded me of the work I did supporting my aunt and the tutors she worked with. My aunt was the person who interacted with the tutors directly; I was entirely in the background as IT support. The tutors did not know I existed. However, many of the changes they experienced came from work I was doing behind the scenes. I was the one making the technical changes, fixing problems, and adjusting the systems so that things worked more smoothly for them. From their perspective, the improvements simply appeared. They could continue their work without seeing the person responsible for making those changes possible.</p>
-      <!-- END PENDING EDIT -->
-
-      <p>That experience makes Lao Tzu's passage feel very real to me, although I find the invisibility harder than the passage makes it sound. There is something satisfying about knowing that my work helped people without requiring recognition. At the same time, being completely unseen can be difficult. I can appreciate the value of contributing quietly while also admitting that sometimes I want my effort—and not only the final result—to be acknowledged.</p>
+      <p>Lao Tzu's passage therefore feels real to me because leadership can be effective when people experience capability rather than dependence. I value contributing quietly, but I also recognize that complete invisibility can make sustained effort difficult. The quote matters to me because it captures both the ideal I want to pursue and a tension I still need to manage: helping others claim the outcome while accepting that I sometimes want my own contribution to be acknowledged.</p>
     </div>
   </section>
 
   <!-- ============================================================
        03 - VISION AND MISSION — open canvas, ruled columns
        ============================================================ -->
-  <section class="section" id="s03" aria-labelledby="s03-title">
-    <div class="shead">
+  <section class="section page-grid" id="s03" aria-labelledby="s03-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">03</p>
       <h3 class="shead__title" id="s03-title">Vision and Mission</h3>
-      <!-- OUTSTANDING: §3 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Technology becomes leadership when it expands what others can do.</p>
     </div>
 
     <div class="linked">
@@ -240,17 +223,10 @@
       </article>
     </div>
 
-    <!-- ============================================================
-         PENDING YOUR EDIT — §3 explanation.
-         Injected verbatim from your planning answers, NOT rewritten.
-         You flagged that this still reads as notes rather than
-         continuous prose. It is also currently one long paragraph;
-         it may want to be two.
-         ============================================================ -->
-    <div class="prose">
-      <p>My ambition begins with effecting change within my local community, then broadening that impact to the city, the country, and ultimately as far as progress allows. The underlying purpose is to improve people's lives, reduce their apprehension toward technology, and make it accessible to those who do not already possess technical skills. This direction is not confined to a single field; it could extend into biotechnology, the sciences, and other STEM areas. Within fifteen years I see myself in a senior leadership role, leading a team, driving organizational change, and potentially establishing my own business, using my expertise in computer science to improve real-world operations rather than working in isolation.</p>
+    <div class="prose direction-analysis">
+      <p class="eyebrow direction-analysis__label">Direction</p>
+      <p>My direction begins locally: using technology to solve practical problems and reduce the apprehension of people who lack technical confidence. Over time, I want to extend that work across organizations and fields, potentially including biotechnology and other STEM areas. Within fifteen years, I aim to hold a senior leadership role, guide a technical team, and possibly establish a business. The common purpose is to combine computer science with leadership so that useful ideas become systems people can confidently use.</p>
     </div>
-    <!-- END PENDING EDIT -->
   </section>
   </section><!-- /chapter I -->
 
@@ -258,44 +234,45 @@
        CHAPTER II — PRACTICE (components 04-06)
        ============================================================ -->
   <section class="chgroup" aria-labelledby="ch2-name">
-    <div class="chapter chapter--flip">
+    <div class="chapter chapter--flip page-grid">
       <div class="chapter__text">
         <p class="chapter__num" aria-hidden="true">II</p>
         <h2 class="chapter__name" id="ch2-name">Practice</h2>
         <p class="chapter__meta">Components 04 &ndash; 06</p>
       </div>
-      <img class="pict pict--chapter" src="assets/illustrations/idea.svg" alt="" aria-hidden="true" width="256" height="256" loading="lazy">
+      <div class="chapter__icon" aria-hidden="true">
+        <img class="pict pict--chapter" src="assets/illustrations/idea.svg" alt="" width="256" height="256" loading="lazy">
+      </div>
     </div>
 
   <!-- ============================================================
        04 - GOALS AND PLANS — three-stage timeline
        ============================================================ -->
-  <section class="section" id="s04" aria-labelledby="s04-title">
-    <div class="shead">
+  <section class="section page-grid" id="s04" aria-labelledby="s04-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">04</p>
       <h3 class="shead__title" id="s04-title">Goals and Plans</h3>
-      <!-- OUTSTANDING: §4 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Purpose becomes progress through specific, measurable commitments.</p>
     </div>
 
     <ol class="timeline">
       <li class="tstage">
         <span class="tstage__dot" aria-hidden="true"></span>
-        <span class="i i--calendar tstage__icon" aria-hidden="true"></span>
+        <img class="icon-asset tstage__icon" src="assets/icons/calendar.svg" alt="" aria-hidden="true" width="16" height="16">
         <p class="eyebrow">Immediate</p>
         <h4 class="tstage__title">Sit the SAT in October 2026</h4>
         <p>I will sit the SAT on 3 October 2026 and score 1500 or higher. To reach this, I will complete at least three full-length timed practice tests before the sitting and concentrate the majority of my remaining preparation on Reading and Writing, which my diagnostic identified as the weaker of the two sections, while continuing to maintain and strengthen Mathematics.</p>
       </li>
       <li class="tstage">
         <span class="tstage__dot" aria-hidden="true"></span>
-        <span class="i i--compass tstage__icon" aria-hidden="true"></span>
+        <img class="icon-asset tstage__icon" src="assets/icons/compass.svg" alt="" aria-hidden="true" width="16" height="16">
         <p class="eyebrow">Medium-range</p>
         <h4 class="tstage__title">Apply to computer science programs across four countries</h4>
         <p>By the end of October 2026, I will confirm the admission requirements — standardized testing, English proficiency, and GPA thresholds — for computer science programs in Canada, Saudi Arabia, the United States, and the United Kingdom, and submit applications to at least five programs by their respective deadlines. Requirements differ substantially between these countries, so confirming them individually is necessary before committing to a final list.</p>
       </li>
       <li class="tstage">
         <span class="tstage__dot" aria-hidden="true"></span>
-        <span class="i i--education tstage__icon" aria-hidden="true"></span>
+        <img class="icon-asset tstage__icon" src="assets/icons/education.svg" alt="" aria-hidden="true" width="16" height="16">
         <p class="eyebrow">Long-range</p>
         <h4 class="tstage__title">Complete a degree while accumulating practical experience</h4>
         <p>Within five years I will complete a bachelor's degree in computer science, including the preparatory year required by Saudi programs, and secure at least one internship or freelance engagement in each year of study. Academic programs emphasize theory, and my internship at Mindstreams Education showed me how much of professional competence comes from applied work, so I want practical experience accumulating alongside my studies rather than only afterward.</p>
@@ -311,27 +288,26 @@
        only. No worded stage labels: naming them would be my reading of
        your essay rather than your own words.
        ============================================================ -->
-  <section class="section" id="s05" aria-labelledby="s05-title">
-    <div class="shead">
+  <section class="section page-grid" id="s05" aria-labelledby="s05-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">05</p>
       <h3 class="shead__title" id="s05-title">Personal Leadership Development</h3>
-      <!-- OUTSTANDING: §5 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Growth means learning to lead through people, not only through systems.</p>
     </div>
 
-    <div class="essay">
+    <div class="essay reading-column">
       <div class="essay__stage">
         <p class="essay__marker" aria-hidden="true">i</p>
         <div class="prose prose--long">
           <p>The clearest evidence of my leadership development came from the Time Management Profile I completed in February. I scored 9 out of 12, but the most important result was identifying that I did not delegate tasks that someone else could complete. My awareness of this problem has changed faster than my behaviour. I still tend to take responsibility for the entire solution, especially when I understand the technical work. I now recognize that this limits the scale of what I can accomplish and can make other people dependent on me.</p>
-          <p>Servant leadership fits my approach best because I usually try to make other people's work easier. At Mindstreams Education, I built a document system that reduced the manual formatting tutors previously had to complete. I also wrote a manual so they could use the forms without needing me to explain the process each time. This reflects servant leadership because the focus was on removing obstacles for other people rather than gaining authority over them. However, the style does not fit me perfectly. I often work independently, and I still need experience delegating responsibilities and developing other people's abilities through direct collaboration.</p>
+          <p>Servant leadership fits my approach because I measure success by whether other people can work more easily and independently. I prefer to remove obstacles, clarify a process, and leave behind something useful rather than rely on authority. This tendency also explains the portfolio's "Leading by Design" theme: I try to shape the conditions around work so that good performance becomes easier. However, servant leadership does not fit me perfectly. I often solve problems independently, so I still need experience delegating responsibility, coaching others, and adjusting my approach when support alone is not enough.</p>
         </div>
       </div>
 
       <div class="essay__stage">
         <p class="essay__marker" aria-hidden="true">ii</p>
         <div class="prose prose--long">
-          <p>At the beginning of the course, I associated leadership mainly with formal authority and directing people. I now understand that leadership can also operate through expertise, preparation, communication, and system design. A person does not need a management title to influence how work is completed. For example, when visa issues required me to leave the country, I created a manual that helped my father continue his work while I was away. I was not supervising him directly, but the guidance I prepared allowed my knowledge to remain useful in my absence. My instinct has often been to make myself unnecessary by writing a process down rather than by handing part of the work to another person. That transfers knowledge successfully when someone is willing to follow it, but it does not teach me how to motivate someone who is uninterested or resistant.</p>
+          <p>At the beginning of the course, I associated leadership mainly with formal authority and directing people. I now understand that it can also operate through expertise, preparation, communication, and system design. My instinct has often been to make myself unnecessary by documenting a process. That can preserve knowledge, but documentation is not the same as delegation because it transfers instructions after the main decisions have already been made. Leading through people requires involving someone earlier, sharing judgement, accepting a different method, and remaining accountable without reclaiming control. This distinction has changed how I evaluate my own work.</p>
           <p>Online schooling since Grade 9 has influenced this development. It gave me considerable independence and experience managing projects on my own, but it provided no opportunities to lead school teams in person. Most people I have worked with already wanted the outcome or were willing to learn. I have not yet had to motivate someone who was disengaged or strongly opposed to my approach. This is an important limitation because designing a good system does not guarantee that people will accept or use it.</p>
         </div>
       </div>
@@ -339,8 +315,8 @@
       <div class="essay__stage">
         <p class="essay__marker" aria-hidden="true">iii</p>
         <div class="prose prose--long">
-          <p>My next stage of development is therefore learning to lead through other people rather than only through what I can build myself. I need to delegate lower-risk responsibilities, define the required outcome, and allow someone else to choose how to reach it.</p>
-          <p>Leadership matters to me because technical knowledge becomes more valuable when it helps other people work accurately and independently. My goal is to become someone who can both design an effective solution and create the conditions in which other people can carry it forward.</p>
+          <p>My next stage of development is learning to lead through other people rather than only through what I can build myself. In my next group or technical project, I will delegate at least one lower-risk responsibility, define the required outcome and deadline, agree on checkpoints, and allow the other person to choose the method. I will resist correcting every difference that does not affect the result and ask for feedback afterward about whether my guidance was clear. Repeating this process will give me evidence of progress and help me practise trust, coaching, and accountability rather than using documentation as a substitute for collaboration.</p>
+          <p>Leadership matters to me because technical knowledge becomes more valuable when it helps other people work accurately and independently. A well-designed solution has limited value if it depends on one person. My goal is to create conditions in which other people can carry an idea forward, question it, and improve it.</p>
         </div>
       </div>
     </div>
@@ -349,108 +325,103 @@
   <!-- ============================================================
        06 - MANAGEMENT SKILLS — four quadrants, twelve components
        ============================================================ -->
-  <section class="section" id="s06" aria-labelledby="s06-title">
-    <div class="shead">
+  <section class="section page-grid" id="s06" aria-labelledby="s06-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">06</p>
       <h3 class="shead__title" id="s06-title">Management Skills</h3>
-      <!-- OUTSTANDING: §6 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Management turns intention into coordinated, measurable action.</p>
     </div>
 
     <div class="quadrants">
       <!-- ---------- PLANNING ---------- -->
       <section class="quadrant" aria-labelledby="q-planning">
         <header class="quadrant__head">
-          <span class="i i--target quadrant__icon" aria-hidden="true"></span>
           <h4 class="quadrant__title" id="q-planning">Planning</h4>
-          <p class="quadrant__count" aria-hidden="true">01 &ndash; 03</p>
+          <img class="icon-asset quadrant__icon" src="assets/icons/target.svg" alt="" aria-hidden="true" width="16" height="16">
         </header>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">01</span>Scoping the Mindstreams System</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/target.svg" alt="" aria-hidden="true" width="16" height="16">Scoping the Mindstreams System</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">Before building the document automation system at Mindstreams Education, I first had to understand what the business required. There was no existing automated process, so I examined what information tutors needed to submit, what documents management needed to receive, and how the website and back-end tools could connect. Because Mindstreams operates in the United Kingdom, I also identified GDPR compliance as a design constraint during this scoping stage. This demonstrates planning because I defined the problem, objectives, technical connections, and legal boundaries before deciding how to build the system.</p>
+          <p class="item__text">Mindstreams Education had no automated document process, so I mapped what tutors submitted, what management needed to receive, and how the website and back-end tools could connect. Because the company operates in the United Kingdom, I treated GDPR compliance as a design constraint from the start. This was planning because I defined the problem, objectives, technical dependencies, and legal boundaries before choosing a solution. The scoping work taught me that a reliable system begins with requirements, not code.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">02</span>Course Planner Needs Analysis</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/gauge.svg" alt="" aria-hidden="true" width="16" height="16">Course Planner Needs Analysis</h5>
           <p class="item__cat">Personal project</p>
-          <p class="item__text">I created the Course Planner because the available options were either too generic or depended heavily on spreadsheets. Before developing it, I defined the main need: one place where I could organize schedules, lessons, assignments, and learning resources. I decided that the first version should reproduce the useful structure of my spreadsheet before adding more advanced features. This was planning through needs analysis and objective-setting. Establishing that purpose gave the project boundaries and allowed me to evaluate each proposed feature according to whether it improved the planner's usefulness.</p>
+          <p class="item__text">Available planners were either too generic or depended heavily on spreadsheets, so I defined the need for one place to organize schedules, lessons, assignments, and resources. I decided that the first version would reproduce the useful structure of my spreadsheet before adding advanced features. This was planning through needs analysis and objective-setting. Establishing a clear purpose gave the project boundaries and let me judge each proposed feature by whether it improved the planner's usefulness.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">03</span>Planning the Portfolio Site</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/layers.svg" alt="" aria-hidden="true" width="16" height="16">Planning the Portfolio Site</h5>
           <p class="item__cat">This portfolio</p>
-          <p class="item__text">Before building my leadership portfolio site, I translated the assignment into a nine-section content brief and compared several possible formats, including a LinkedIn profile, a blog, and a slide presentation. I chose a single-scroll website because it gave the longer written sections enough space while numbered navigation would let a marker move directly between requirements. I also selected the "Leading by Design" theme and Roboto Condensed font before development began. This demonstrates planning because the format, audience, structure, and visual direction were specified before any code was written.</p>
+          <p class="item__text">Before building this portfolio, I translated the assignment into a nine-section brief and compared a LinkedIn profile, blog, slide presentation, and website. I chose a single-scroll site because it could hold the required reflections while numbered navigation kept each component discoverable. I also defined the "Leading by Design" theme and a light editorial visual direction before development. This demonstrates planning because the audience, structure, format, and design criteria were decided before the site was built.</p>
         </article>
       </section>
 
       <!-- ---------- ORGANIZING ---------- -->
       <section class="quadrant" aria-labelledby="q-organizing">
         <header class="quadrant__head">
-          <span class="i i--layers quadrant__icon" aria-hidden="true"></span>
           <h4 class="quadrant__title" id="q-organizing">Organizing</h4>
-          <p class="quadrant__count" aria-hidden="true">04 &ndash; 06</p>
+          <img class="icon-asset quadrant__icon" src="assets/icons/layers.svg" alt="" aria-hidden="true" width="16" height="16">
         </header>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">04</span>Document-Automation Workflow</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/arrow-right.svg" alt="" aria-hidden="true" width="16" height="16">Document-Automation Workflow</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">The Mindstreams automation required several tools to operate as one organized process. Tutors enter client information through forms on the Wix website. Wix Automation transfers that information to a spreadsheet, where an embedded Google Apps Script detects the change and generates the required document. The system then emails the document to the company, converts it into a PDF, and stores it in Google Drive using a consistent naming convention. This demonstrates organizing because I assigned a specific role to each component and arranged them into a coordinated workflow that replaced inconsistent manual formatting.</p>
+          <p class="item__text">The Mindstreams automation required several tools to operate as one process. Tutors enter information through Wix forms; Wix Automation transfers it to a spreadsheet; Google Apps Script generates the required document; and the system emails, converts, and stores the file using a consistent name. This demonstrates organizing because I assigned each component a specific role and arranged their dependencies into a coordinated workflow. It developed my ability to turn separate technical tools into a reliable business process.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">05</span>Building the Planner in Versions</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/layers.svg" alt="" aria-hidden="true" width="16" height="16">Building the Planner in Versions</h5>
           <p class="item__cat">Personal project</p>
-          <p class="item__text">I organized development of the Course Planner into versions instead of attempting every feature at once. The first version reproduced the essential structure of the spreadsheet I already used, giving me a working baseline. Later versions could then add or improve features without changing the project's foundation. I also separated schedules, lessons, assignments, and resources so that each type of information had a clear location. This was organizing because I divided a large technical project into manageable components and established an order for completing them. As a result, the project remained usable while it continued to develop.</p>
+          <p class="item__text">I organized the Course Planner into versions instead of attempting every feature at once. The first reproduced the essential structure of my spreadsheet and created a working baseline; later versions could improve features without replacing the foundation. I also separated schedules, lessons, assignments, and resources so each type of information had a clear location. This was organizing because I divided a large project into manageable components and established their order. The approach kept the planner usable while it continued to develop.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">06</span>Mapping the Nvidia Project</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/compass.svg" alt="" aria-hidden="true" width="16" height="16">Mapping the Nvidia Project</h5>
           <p class="item__cat">Coursework</p>
-          <p class="item__text">The mind map for my Nvidia project showed that the slides, script, and recording were not independent tasks. The script determined what each slide needed to communicate, while the slide order established the structure and transitions of the recording. Mapping these relationships helped me identify where a visual required explanation and where information belonged in the script rather than on the screen. This demonstrates organizing because I arranged related tasks according to their dependencies. Without the map, I could have repeated information, omitted necessary visuals, or completed slides that did not match the final script.</p>
+          <p class="item__text">For my Nvidia project, I mapped how the script, slides, and recording depended on one another. The script determined what each slide needed to communicate, while the slide order shaped the recording's structure and transitions. This was organizing because I arranged related tasks by dependency and decided whether information belonged in narration or on screen. The map reduced repetition, exposed missing visuals, and helped the finished parts support one coherent presentation.</p>
         </article>
       </section>
 
       <!-- ---------- LEADING ---------- -->
       <section class="quadrant" aria-labelledby="q-leading">
         <header class="quadrant__head">
-          <span class="i i--users quadrant__icon" aria-hidden="true"></span>
           <h4 class="quadrant__title" id="q-leading">Leading</h4>
-          <p class="quadrant__count" aria-hidden="true">07 &ndash; 09</p>
+          <img class="icon-asset quadrant__icon" src="assets/icons/users.svg" alt="" aria-hidden="true" width="16" height="16">
         </header>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">07</span>Influencing a Technical Decision Without Authority</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/target.svg" alt="" aria-hidden="true" width="16" height="16">Influencing a Technical Decision Without Authority</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">While developing the Mindstreams system, I researched the relevant legal requirements and presented my findings to the company's owner. She has a background in computer engineering and knowledge of the company's operations, so she was able to evaluate both the technical and business sides of my work. She adjusted certain sections, and we reviewed the system together before publishing it. This demonstrates leading through expert influence and collaborative decision-making rather than formal authority. My research helped shape the final approach, while her review ensured that the system reflected the organization's actual requirements.</p>
+          <p class="item__text">While developing the Mindstreams system, I researched the legal requirements and presented my findings to the company's owner. Her computer-engineering background and knowledge of operations let her challenge both the technical and business sides of my work. We revised and reviewed the system together before publication. This demonstrates leading through expert influence and collaborative decision-making rather than formal authority. I learned that good leadership can mean bringing evidence into a discussion and allowing another person's expertise to improve the result.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">08</span>Tutor Instruction Manual</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/education.svg" alt="" aria-hidden="true" width="16" height="16">Tutor Instruction Manual</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">After building the Mindstreams forms, I wrote a company manual explaining how tutors should use them. A system would not improve the organization if employees could not operate it without its developer being present. The manual translated the technical process into instructions that other people could follow and also documented the availability of manual forms as a fallback. This demonstrates leading because I guided other people's work through clear communication and knowledge sharing. The result was a process that could continue without requiring me to personally explain every step to each tutor.</p>
+          <p class="item__text">After building the Mindstreams forms, I wrote a manual explaining how tutors should use them and when to use the manual fallback. The document translated a technical process into instructions that employees could follow without the developer being present. This demonstrates leading through communication and knowledge sharing. It developed my ability to explain a system from the user's perspective and created a process that could continue without requiring me to repeat every instruction personally.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">09</span>Supporting My Father Remotely</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/users.svg" alt="" aria-hidden="true" width="16" height="16">Supporting My Father Remotely</h5>
           <p class="item__cat">Family</p>
-          <p class="item__text">My father usually relies on me for parts of his work rather than completing the process independently. When visa issues required me to leave the country, I knew I would not be available to help him directly. I created a step-by-step manual explaining the workflow and the decisions involved. He used it while I was away, and it helped him continue his work despite my absence. This demonstrated leadership through preparation and knowledge transfer: instead of remaining the person who needed to solve everything, I created guidance that allowed someone else to keep working.</p>
+          <p class="item__text">When visa issues required me to leave the country, I could no longer help my father directly with parts of his work. I created a step-by-step manual explaining the workflow and the decisions involved, which he used to continue while I was away. This demonstrated leading through preparation and knowledge transfer. It also challenged my habit of remaining the person who solves everything by showing that clear guidance can help someone else work independently.</p>
         </article>
       </section>
 
       <!-- ---------- CONTROLLING ---------- -->
       <section class="quadrant" aria-labelledby="q-controlling">
         <header class="quadrant__head">
-          <span class="i i--gauge quadrant__icon" aria-hidden="true"></span>
           <h4 class="quadrant__title" id="q-controlling">Controlling</h4>
-          <p class="quadrant__count" aria-hidden="true">10 &ndash; 12</p>
+          <img class="icon-asset quadrant__icon" src="assets/icons/gauge.svg" alt="" aria-hidden="true" width="16" height="16">
         </header>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">10</span>Preventive GDPR Control</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/gauge.svg" alt="" aria-hidden="true" width="16" height="16">Preventive GDPR Control</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">After identifying GDPR compliance as a constraint during planning, I used the relevant requirements as preventive control standards throughout development. Rather than waiting until the system was finished to check compliance, I considered how information would be collected, transferred, used, and stored while building the workflow. I brought my findings to the company's owner, who adjusted sections based on her knowledge of the business, and we reviewed the system together. This demonstrates controlling because compliance was built into the process so that major corrections or a complete rebuild would not be required later.</p>
+          <p class="item__text">After identifying GDPR compliance as a planning constraint, I used the requirements as preventive control standards throughout development. I checked how information would be collected, transferred, used, and stored instead of waiting until the system was complete. The company's owner then reviewed and adjusted the process using her business knowledge. This demonstrates controlling because compliance was built into the workflow before publication. I learned that early standards can prevent expensive corrections or a complete rebuild later.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">11</span>Back-End Verification and Error Hardening</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/target.svg" alt="" aria-hidden="true" width="16" height="16">Back-End Verification and Error Hardening</h5>
           <p class="item__cat">Mindstreams Education</p>
-          <p class="item__text">After connecting the Wix forms, spreadsheet, and Google Apps Script, I tested the complete workflow rather than assuming that each component would operate correctly. I checked whether submitted information reached the spreadsheet, whether the script generated the correct document, whether the email was sent, and whether the PDF was stored under the expected name. When errors or unusual inputs appeared, I revised the back-end logic to handle them more reliably. This demonstrates controlling because I compared actual output with the expected standard and made corrective changes. The process became more dependable through repeated testing and adjustment.</p>
+          <p class="item__text">After connecting the Wix forms, spreadsheet, and Google Apps Script, I tested the complete workflow. I verified that information reached the spreadsheet, the script generated the correct document, the email was sent, and the PDF used the expected name. When errors or unusual inputs appeared, I revised the back-end logic. This demonstrates controlling because I compared actual output with a defined standard and made corrective changes. Repeated testing developed my attention to reliability rather than merely whether a feature worked once.</p>
         </article>
         <article class="item">
-          <h5 class="item__title"><span class="item__num" aria-hidden="true">12</span>Managing My Passport Renewal</h5>
+          <h5 class="item__title"><img class="icon-asset item__icon" src="assets/icons/calendar.svg" alt="" aria-hidden="true" width="16" height="16">Managing My Passport Renewal</h5>
           <p class="item__cat">Personal responsibility</p>
-          <p class="item__text">I managed my own passport renewal rather than leaving the process to my parents. I reviewed the official requirements, gathered the necessary government documents, completed the application, and checked the information before submission. My parents' role was limited to verifying that the personal details were accurate. Government procedures can be delayed when information is incomplete or a required document is missing, so I treated the stated requirements as the standard for reviewing my work. This demonstrates controlling because I monitored the process and corrected potential omissions before they could cause a delay.</p>
+          <p class="item__text">I managed my passport renewal by reviewing the official requirements, gathering the government documents, completing the application, and checking every detail before submission. My parents only verified that the personal information was accurate. I treated the stated requirements as a control standard because missing information could delay the process. This demonstrates controlling through monitoring and preventive correction. It developed my ability to manage an unfamiliar administrative process and take responsibility for accuracy before another organization reviewed my work.</p>
         </article>
       </section>
     </div>
@@ -461,46 +432,42 @@
        CHAPTER III — DIRECTION (components 07-09)
        ============================================================ -->
   <section class="chgroup" aria-labelledby="ch3-name">
-    <div class="chapter">
+    <div class="chapter page-grid">
       <div class="chapter__text">
         <p class="chapter__num" aria-hidden="true">III</p>
         <h2 class="chapter__name" id="ch3-name">Direction</h2>
         <p class="chapter__meta">Components 07 &ndash; 09</p>
       </div>
-      <img class="pict pict--chapter" src="assets/illustrations/investment.svg" alt="" aria-hidden="true" width="256" height="256" loading="lazy">
+      <div class="chapter__icon" aria-hidden="true">
+        <img class="pict pict--chapter" src="assets/illustrations/investment.svg" alt="" width="256" height="256" loading="lazy">
+      </div>
     </div>
 
   <!-- ============================================================
        07 - LEADER IDOL — editorial case study
        ============================================================ -->
-  <section class="section" id="s07" aria-labelledby="s07-title">
-    <div class="shead">
+  <section class="section page-grid" id="s07" aria-labelledby="s07-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">07</p>
       <h3 class="shead__title" id="s07-title">Leader Idol</h3>
-      <!-- OUTSTANDING: §7 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">A leadership model should be studied critically, not copied completely.</p>
     </div>
 
-    <div class="casestudy">
+    <div class="casestudy page-grid">
       <aside class="casestudy__aside">
-        <!-- OUTSTANDING: assets/idol.jpg not yet supplied. Your note says to
-             use an NVIDIA corporate image or omit the slot entirely - do not
-             use an uncredited photograph. The section reads as finished
-             without it; the initials card below is a deliberate treatment,
-             not a broken image.
-             To use a photograph instead, replace the .initials div with:
-             <img class="casestudy__img" src="assets/idol.jpg"
-                  alt="[describe the portrait or logo]" width="600" height="600"> -->
-        <div class="initials" aria-hidden="true">JH</div>
+        <figure class="casestudy__portrait">
+          <img class="casestudy__img" src="assets/jensen-huang.jpg" alt="Jensen Huang, founder and CEO of NVIDIA" width="900" height="900" loading="lazy">
+          <figcaption class="casestudy__credit">Portrait: <a href="https://investor.nvidia.com/governance/management-team/default.aspx">NVIDIA Corporation</a></figcaption>
+        </figure>
         <p class="casestudy__name">Jensen Huang</p>
         <p class="casestudy__role">Co-founder, President and Chief Executive Officer, NVIDIA Corporation</p>
       </aside>
 
       <div class="casestudy__body prose">
-        <p>Researching Nvidia earlier in this course first drew my attention to Jensen Huang, but my interest in him extends beyond the company's financial success. Huang co-founded Nvidia in 1993 and has remained its president and chief executive officer since its creation ("Jensen Huang"). Remaining responsible for one technology company through several major changes in computing demonstrates persistence, but what interests me most is how he has deliberately designed Nvidia's management structure.</p>
-        <p>Huang's approach combines transformational leadership with participative problem-solving. He encourages people from different technical specialties to examine problems together, which supports collaboration and exposes employees to the same reasoning. In 2026, he described having roughly 60 direct reports and replacing individual meetings with group discussions in which the team practises "extreme co-design" (Shibu). In management terms, this gives Huang an exceptionally wide span of control. It also shortens Fayol's scalar chain by removing management layers between him and technical decision-makers. His method is participative because people contribute their expertise to a shared discussion, but authority remains highly centralized because so many reporting relationships lead directly to him. The transformational element is his willingness to redesign the organization around agility, shared information, and a long-term technological vision instead of following a conventional hierarchy.</p>
-        <p>Huang's system connects with my philosophy that leadership involves designing structures that make other people's work easier. His meetings are intended to prevent information from becoming a form of private influence. Earlier reporting described his goal as allowing information to move quickly and empowering employees through what they can do rather than through information available only to them (Royle). I admire this because the structure itself encourages transparency. In my own work at Mindstreams Education, I also tried to place knowledge inside a system by automating a document process and writing instructions that allowed other people to use it without my presence. However, my approach is closer to servant leadership: I normally work quietly through documentation and support, while Huang leads through highly visible, fast, and demanding group reasoning.</p>
-        <p>I would emulate Huang's use of shared context, direct access to expertise, and cross-functional problem-solving. These practices could reduce distortion and prevent useful information from being delayed by unnecessary hierarchy. I would not copy his model completely. Removing regular one-on-one meetings can eliminate a private channel where someone might discuss performance, conflict, or a sensitive concern. A span of approximately 60 direct reports also limits the individual coaching a leader can provide. Huang has described working every waking moment, seven days a week, and has acknowledged the anxiety and exhaustion involved (Shibu). That intensity may be possible for a founder with decades of experience, but it is not a sustainable model I would want to impose on myself or other people. His example is therefore meaningful to me not because it offers a structure to copy, but because it demonstrates that leadership design must match the organization, its people, and the situation.</p>
+        <p>Jensen Huang co-founded Nvidia in 1993 and has remained its president and chief executive officer through major shifts in computing ("Jensen Huang"). His persistence is notable, but I chose him because he treats organizational structure as something a leader can deliberately redesign rather than simply inherit.</p>
+        <p>Huang combines transformational leadership with participative problem-solving. He brings different technical specialists into the same discussion so they can contribute expertise and hear the reasoning behind decisions. In 2026, he described having roughly 60 direct reports and replacing individual meetings with group discussions in which the team practises "extreme co-design" (Shibu). This creates an exceptionally wide span of control and shortens Fayol's scalar chain between the chief executive and technical decision-makers. The approach is participative because employees help solve the problem, yet authority remains centralized because so many reporting relationships lead directly to Huang. It is transformational because the organization is designed around agility, shared information, and long-term technological change rather than a conventional hierarchy.</p>
+        <p>This structure connects with my belief that leadership involves designing conditions that help other people work effectively. Earlier reporting described Huang's goal as moving information quickly and empowering employees through what they can do, not through information available only to them (Royle). I admire the transparency of that principle. My own style is quieter and more servant-oriented, but the shared idea is that useful knowledge should strengthen the group rather than become a private source of influence.</p>
+        <p>I would emulate Huang's use of shared context, direct access to expertise, and cross-functional problem-solving because these practices can reduce distortion and unnecessary delay. I would not copy the model completely. Removing regular one-on-one meetings can eliminate a private channel for discussing performance, conflict, or a sensitive concern, while approximately 60 direct reports limit individual coaching. Huang has also described working every waking moment, seven days a week, and acknowledged the anxiety and exhaustion involved (Shibu). That intensity may suit a founder with decades of experience, but it is not a sustainable expectation I would impose on myself or others. His example matters because it shows that leadership design must match the organization, its people, and the situation.</p>
       </div>
     </div>
   </section>
@@ -508,12 +475,11 @@
   <!-- ============================================================
        08 - PERSONALITY TRAITS
        ============================================================ -->
-  <section class="section" id="s08" aria-labelledby="s08-title">
-    <div class="shead">
+  <section class="section page-grid" id="s08" aria-labelledby="s08-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">08</p>
       <h3 class="shead__title" id="s08-title">Personality Traits</h3>
-      <!-- OUTSTANDING: §8 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">Self-awareness shapes where and how I contribute best.</p>
     </div>
 
     <div class="badge">
@@ -521,16 +487,8 @@
       <p class="badge__label">Architect (Assertive)</p>
     </div>
 
-    <!-- ============================================================
-         PENDING YOUR EDIT — §8 paragraph 1.
-         Injected verbatim from your MBTI self-assessment, NOT rewritten.
-         Your own note: tighten into continuous prose, and match the
-         specificity of the Tony Hsieh analysis from the Unit 2
-         summative rather than describing the type generally.
-         ============================================================ -->
-    <div class="prose">
-      <p>My Myers-Briggs type is INTJ-A, the Assertive Architect. Architects are independent, analytical, and determined, valuing rationality and long-term planning, and tend to recognize patterns that others overlook. The Assertive variant is self-assured and comparatively resistant to stress, preferring to rely on its own judgement. I recognize this in how I work: I concentrate best in quiet, structured environments where I can analyse information and improve systems, and I am drained rather than energized by extended social interaction. A common misconception is that introversion means shyness or social difficulty; in practice it describes how a person recovers energy rather than how capable they are of leading.</p>
-    <!-- END PENDING EDIT -->
+    <div class="prose reading-column">
+      <p>My Myers-Briggs result is INTJ-A, the Assertive Architect. I recognize its independence, analytical thinking, long-term planning, and preference for relying on personal judgement. I concentrate best in quiet, structured environments where I can analyse information and improve systems, while extended social interaction drains rather than energizes me. This does not prevent me from leading; it means I contribute most effectively when I have time to prepare, understand the problem, and enter collaboration with a clear purpose.</p>
 
       <p>I offer the ability to analyze an incomplete process and build a practical system around it. At Mindstreams Education, I developed a document-automation workflow while accounting for UK GDPR requirements, wrote a manual so tutors could operate the forms without me, and included a manual fallback in case the automation failed. This demonstrates technical ability, preventive planning, documentation, quality control, and an awareness that a useful system must remain reliable after its creator steps away.</p>
       <p>I prefer a less traditional working environment. Fixed cubicle arrangements do not suit how I work best. I would rather be in an open culture where employees have the freedom to manage their own work and choose where they do it, whether that means working from an office, from home, or elsewhere. That flexibility supports concentration and creativity, and it matches the way I have studied and worked independently since Grade 9.</p>
@@ -540,46 +498,49 @@
     <ol class="careers">
       <li class="career">
         <h4 class="career__title">AI or machine-learning engineer</h4>
-        <p>It combines programming with building intelligent systems, and the underlying mathematics is the part of the work I find genuinely interesting rather than merely tolerable.</p>
+        <p>It combines programming with building intelligent systems, and the underlying mathematics is a part of the work I genuinely enjoy. The role would let me investigate a technical problem deeply before explaining the result to a wider team.</p>
       </li>
       <li class="career">
         <h4 class="career__title">Data scientist</h4>
-        <p>It rewards analytical reasoning and the identification of patterns within complex information, which matches how I prefer to approach problems.</p>
+        <p>It rewards analytical reasoning and identifying patterns within complex information, which matches how I approach problems. I would also value turning those findings into evidence that helps an organization make a clearer decision.</p>
       </li>
       <li class="career">
         <h4 class="career__title">IT systems manager</h4>
-        <p>It involves designing, documenting, and controlling organizational technology — the same combination of tasks I carried out during my internship at Mindstreams Education.</p>
+        <p>It involves designing, documenting, and controlling organizational technology—the same combination I practised at Mindstreams Education. It would also require me to develop the delegation and communication skills that independent technical work does not exercise as fully.</p>
       </li>
       <li class="career">
         <h4 class="career__title">Strategic consultant</h4>
-        <p>It focuses on diagnosing the underlying problem rather than treating its symptoms, which is the approach I take to systems I build for myself and for others.</p>
+        <p>It focuses on diagnosing the underlying problem rather than treating its symptoms, which is how I approach systems. Presenting recommendations to clients would challenge me to make technical reasoning persuasive and useful to people with different priorities.</p>
       </li>
       <li class="career">
         <h4 class="career__title">Research or business analyst</h4>
-        <p>It requires independent investigation and evidence-based recommendations, both of which suit working alone on a problem before presenting conclusions.</p>
+        <p>It requires independent investigation and evidence-based recommendations, both of which suit how I work. The role would still require concise communication so that research becomes a decision rather than remaining an isolated analysis.</p>
       </li>
     </ol>
 
-    <p class="caveat">MBTI describes my current preferences and working tendencies, but it does not determine my abilities or reliably predict my performance in a particular career.</p>
+    <p class="caveat reading-column">MBTI describes my current preferences and working tendencies, but it does not determine my abilities or reliably predict my performance in a particular career.</p>
   </section>
 
   <!-- ============================================================
        09 - IDEAL EMPLOYER
        Word target: 250-500. Add ?dev to the URL to show the counter.
        ============================================================ -->
-  <section class="section" id="s09" aria-labelledby="s09-title">
-    <div class="shead">
+  <section class="section page-grid" id="s09" aria-labelledby="s09-title">
+    <div class="shead page-grid">
       <p class="shead__num" aria-hidden="true">09</p>
       <h3 class="shead__title" id="s09-title">Ideal Employer</h3>
-      <!-- OUTSTANDING: §9 theme line -->
-      <p class="shead__theme">[theme line]</p>
+      <p class="shead__theme">The right employer aligns meaningful work, personal values, and measurable impact.</p>
     </div>
 
-    <div class="employer-row">
-      <div class="employer">
-        <p class="employer__name">Shopify Inc.</p>
-        <p class="employer__place">Ottawa, Ontario</p>
-      </div>
+    <div class="employer-row page-grid">
+      <p class="employer__name">
+        <a class="employer__brand" href="https://www.shopify.com/">
+          <img class="employer__logo" src="assets/logos/shopify.svg" alt="" aria-hidden="true" width="48" height="48">
+          <span>Shopify Inc.</span>
+        </a>
+      </p>
+      <p class="employer__place">Ottawa, Ontario</p>
+      <span class="employer__rule" aria-hidden="true"></span>
       <img class="pict pict--employer" src="assets/illustrations/pie-chart.svg" alt="" aria-hidden="true" width="256" height="256" loading="lazy">
     </div>
 
@@ -590,19 +551,19 @@
     <!-- "Digital by Design" verified 23 Aug. 2026 against shopify.com/careers,
          which reads: The way we work is "Digital by Design". The older
          "Digital by Default" was the 2020 announcement wording. -->
-    <div class="prose" data-wordcount-source>
-      <p>My ideal Canadian employer is Shopify, a Canadian commerce technology company with its head office in Ottawa, Ontario. I previously studied its management practices, but I am considering it here through a different lens: its responsibility to employees, communities, and the natural environment. Shopify is not ideal because every decision it makes is beyond criticism. It is ideal because its strongest initiatives use technology and market design to help other people build.</p>
+    <div class="prose reading-column" data-wordcount-source>
+      <p>My ideal Canadian employer is Shopify, a commerce technology company headquartered in Ottawa, Ontario. I chose it not because every decision is beyond criticism, but because its strongest initiatives use technology and market design to help employees, entrepreneurs, and climate-focused businesses build.</p>
 
-      <p class="pillar" aria-hidden="true">Employees</p>
-      <p>For employees, Shopify's "Digital by Design" model allows people to complete their daily work wherever they perform best, while still bringing teams together for onboarding, company gatherings, and short in-person "Bursts" when a problem benefits from direct collaboration. Shopify describes this culture as based on trust rather than location ("Careers"). This flexibility suits how I have studied and worked since Grade 9. I am comfortable operating independently online, but I would still benefit from planned opportunities to collaborate with experienced technical teams.</p>
+      <p class="pillar" id="s09-employees" aria-hidden="true"><img class="icon-asset pillar__icon" src="assets/icons/users.svg" alt="" width="16" height="16">Employees</p>
+      <p>Shopify's "Digital by Design" model lets employees complete daily work wherever they perform best while bringing teams together for onboarding, company gatherings, and short in-person "Bursts." Shopify describes this culture as based on trust rather than location ("Careers"). The balance suits my experience studying independently online, while planned collaboration would help me learn from experienced technical teams instead of remaining isolated.</p>
 
-      <p class="pillar" aria-hidden="true">Community</p>
-      <p>Shopify also contributes to communities through entrepreneurship. Its partnership with Operation HOPE supports the 1 Million Black Businesses initiative, which provides education, coaching, and business-development support. Operation HOPE's 2025 report states that the initiative engaged more than 469,000 people and delivered over 531,000 small-business development services cumulatively from October 2020 through December 2025 (<em>HOPE Impact Report</em> 2). The same report identifies Shopify as the initiative's partner through the end of that reporting period. These figures do not show that every earlier Shopify social-impact program remained unchanged, but they document measurable community outcomes rather than relying only on a public commitment.</p>
+      <p class="pillar" id="s09-community" aria-hidden="true"><img class="icon-asset pillar__icon" src="assets/icons/target.svg" alt="" width="16" height="16">Community</p>
+      <p>Shopify contributes to communities through entrepreneurship. Its partnership with Operation HOPE supports the 1 Million Black Businesses initiative, which provides education, coaching, and business-development support. Operation HOPE reported that the initiative had engaged more than 469,000 people by December 2025 and identified Shopify as its partner through that reporting period (<em>HOPE Impact Report</em> 2). The same report recorded more than 531,000 cumulative small-business development services from October 2020 through December 2025. These results make the commitment measurable rather than leaving it as a general statement of support.</p>
 
-      <p class="pillar" aria-hidden="true">Environment</p>
-      <p>The company's environmental work is the strongest reason for my choice. Shopify reports that it has committed more than $100 million to climate entrepreneurs since 2019 ("2025 Climate Report"). It also helped establish Frontier with Stripe, Alphabet, Meta, and McKinsey Sustainability. The founding companies committed a combined $925 million to purchase permanent carbon removal through 2030 (Ross). An advance market commitment does more than compensate for existing emissions: it guarantees future demand so that early-stage suppliers can finance, test, and scale technologies that do not yet have mature markets. This resembles my own leadership philosophy because it addresses the structure producing a problem rather than only its visible effects.</p>
+      <p class="pillar" id="s09-environment" aria-hidden="true"><img class="icon-asset pillar__icon" src="assets/icons/compass.svg" alt="" width="16" height="16">Environment</p>
+      <p>The company's environmental work is the strongest reason for my choice. Shopify reports committing more than $100 million to climate entrepreneurs since 2019 ("2025 Climate Report"). It also helped establish Frontier, whose founding companies committed a combined $925 million to purchase permanent carbon removal through 2030 (Ross). By guaranteeing future demand, the initiative helps early-stage suppliers finance and scale technologies before the market is mature. This does more than compensate for existing emissions: it creates demand for solutions that might otherwise struggle to attract early investment. That matches my leadership philosophy because it changes the structure around a problem rather than treating only its visible effects.</p>
 
-      <p>Shopify also describes its workplace as fast-paced and demanding, with growth expected rather than treated as optional ("Careers"). That culture could challenge my time management and tendency to take on too much myself. However, its combination of independent digital work, difficult technical problems, entrepreneurship, and system-level environmental action makes it the organization where my interests and my developing leadership approach align most closely.</p>
+      <p>Shopify describes its workplace as fast-paced and demanding, so it would challenge my time management and tendency to take on too much myself ("Careers"). Even so, its combination of independent digital work, difficult technical problems, entrepreneurship, and system-level environmental action aligns closely with both my interests and the leader I am trying to become.</p>
     </div>
   </section>
   </section><!-- /chapter III -->
@@ -610,12 +571,12 @@
   <!-- ============================================================
        WORKS CITED - MLA 9, alphabetical by first element.
        ============================================================ -->
-  <section class="section section--quiet" id="works-cited" aria-labelledby="wc-title">
-    <div class="shead shead--quiet">
+  <section class="section section--quiet page-grid" id="works-cited" aria-labelledby="wc-title">
+    <div class="shead page-grid shead--quiet">
       <p class="shead__num" aria-hidden="true">&middot;</p>
       <h2 class="shead__title" id="wc-title">Works Cited</h2>
     </div>
-    <ul class="works-cited">
+    <ul class="works-cited reading-column">
       <li>"2025 Climate Report." <em>Shopify</em>, www.shopify.com/climate-report. Accessed 23 Aug. 2026.</li>
       <li>"Careers, Internships, and Jobs at Shopify." <em>Shopify</em>, www.shopify.com/careers. Accessed 23 Aug. 2026.</li>
       <li><em>HOPE Impact Report 2025</em>. Operation HOPE, Feb. 2026, operationhope.org/wp-content/uploads/2026/02/Operation-HOPE-Annual-Impact-Report-2025.pdf.</li>
@@ -630,7 +591,7 @@
     </ul>
   </section>
 
-  <footer class="colophon">
+  <footer class="colophon page-grid">
     <p>Illustrations by <a href="https://www.svgrepo.com/author/inipagi%20studio/">inipagi studio</a>
     via <a href="https://www.svgrepo.com/collection/business-and-accounting-vectors/">SVG Repo</a>,
     used under CC Attribution; colours adapted for this portfolio. Interface icons from the
@@ -641,6 +602,6 @@
   </main>
 </div>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=20260901-1" defer></script>
 </body>
 </html>
