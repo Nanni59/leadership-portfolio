@@ -1561,6 +1561,7 @@ blockquote p { font-weight: 400; }
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .careers__list { display: grid; }
@@ -1593,6 +1594,15 @@ blockquote p { font-weight: 400; }
 
   .career::before,
   .career__title { border-right: 1px solid var(--border); }
+
+  /* the role centres in its cell both ways, to sit with the numeral.
+     align-content rather than place-items: the text block keeps the full
+     column width, so a long role wraps instead of overflowing. */
+  .career__title {
+    display: grid;
+    align-content: center;
+    text-align: center;
+  }
 
   /* the index reads as a rail, not a first column of data, and the numeral
      centres in it both ways rather than sitting in the top corner */
