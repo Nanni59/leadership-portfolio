@@ -731,8 +731,28 @@ body::after {
   min-height: clamp(18rem, 34vw, 24rem);
   align-items: center;
   padding-block: clamp(2.5rem, 6vw, 4rem);
-  border-top: 2px solid var(--ink);
 }
+
+/* A chapter break is not a section heading, so it must not carry the same
+   2px full-width ink rule that .shead uses; at a glance the page read as
+   nine flat items instead of three groups of three. It is a short accent
+   bar in the chapter's own colour instead. */
+.chapter::before {
+  content: "";
+  grid-column: 1 / -1;
+  justify-self: start;
+  width: clamp(3.5rem, 8vw, 6rem);
+  height: 6px;
+  background: var(--glow);
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  grid-row: 1;
+}
+
+/* A chapter divider already carries its own breathing room above and below.
+   Letting the next section add its full top padding on top of that pushed
+   the divider's title and icon high in the band between the break and the
+   following heading, which is what made them look vertically off-centre. */
+.chapter + .section { padding-top: 0; }
 
 .chapter__text { grid-column: 1 / -1; align-self: center; }
 
@@ -747,11 +767,12 @@ body::after {
 }
 
 @media (min-width: 52rem) {
-  .chapter__text { grid-column: 1 / 8; }
-  .chapter__icon { grid-column: 9 / 13; }
+  /* row 1 belongs to the accent bar, so the title and icon share row 2 */
+  .chapter__text { grid-column: 1 / 8; grid-row: 2; }
+  .chapter__icon { grid-column: 9 / 13; grid-row: 2; }
 
   .chapter--flip .chapter__text { grid-column: 6 / 13; }
-  .chapter--flip .chapter__icon { grid-column: 1 / 5; grid-row: 1; }
+  .chapter--flip .chapter__icon { grid-column: 1 / 5; grid-row: 2; }
 }
 
 .chapter__num {
@@ -861,8 +882,17 @@ body::after {
 .shead--onink .shead__num { color: var(--glow); }
 .shead--onink .shead__title { color: var(--canvas); }
 .shead--onink .shead__theme { color: var(--ink-3); }
-.shead--quiet .shead__num { color: var(--ink-3); }
-.shead--quiet .shead__title { font-size: clamp(1.25rem, 2.4vw, 1.75rem); }
+/* Works Cited carries no numeral, so its title takes the whole measure and is
+   centred on it. This is the one centred heading on the page, by request. */
+.shead--quiet .shead__title {
+  grid-column: 1 / -1;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  text-align: center;
+}
+
+/* the citations follow their heading closely rather than at the full flow
+   step. Needs to outrank `.section > .shead { margin: 0 }`. */
+.section > .shead--quiet { margin-bottom: calc(var(--sp-tight) - var(--sp-flow)); }
 
 /* The reading face sits on the container too, not just its paragraphs, so
    that `ch` in --measure is measured in the font actually being read.
@@ -1152,25 +1182,7 @@ blockquote p { font-weight: 400; }
 
 .statement {
   position: relative;
-  overflow: hidden;
-  padding: 1.25rem 0 1.75rem;
 }
-
-.statement::before {
-  position: absolute;
-  top: 0.15rem;
-  right: 0;
-  font-family: var(--display);
-  font-size: clamp(4rem, 8vw, 6.5rem);
-  line-height: 1;
-  color: rgba(55, 114, 255, 0.1);
-  pointer-events: none;
-}
-
-.statement:first-child::before { content: "01"; }
-.statement:last-child::before { content: "02"; }
-
-.statement > * { position: relative; z-index: 1; }
 
 .statement .eyebrow {
   display: flex;
@@ -1215,9 +1227,6 @@ blockquote p { font-weight: 400; }
 
 .icon--path { color: var(--ultra); }
 
-.direction-analysis {
-  padding: 0.5rem 0 0;
-}
 
 .direction-analysis__label {
   color: var(--ultra-deep);
@@ -1236,35 +1245,26 @@ blockquote p { font-weight: 400; }
 }
 
 @media (min-width: 52rem) {
+  /* Vision and mission are parallel statements, so they get equal cards of
+     equal width. The path caption used to sit in a third grid area above
+     mission, detached from both, which is what made it read as floating. */
   .linked {
-    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
-      "vision path"
-      "vision mission";
-    column-gap: clamp(2.5rem, 5vw, 4rem);
-    row-gap: 0;
-    padding: 2rem 0;
+      "vision mission"
+      "path   path";
+    column-gap: var(--sp-block);
+    row-gap: var(--sp-tight);
+    padding: 0;
   }
 
-  .statement:first-child {
-    grid-area: vision;
-    padding: 1rem clamp(2rem, 4vw, 3.5rem) 1rem 0;
-  }
-
-  .statement:first-child .statement__text {
-    font-size: clamp(1.55rem, 2.4vw, 2rem);
-    line-height: 1.22;
-  }
-
-  .statement:last-child {
-    grid-area: mission;
-    padding: 1rem 0 0;
-  }
+  .statement:first-child { grid-area: vision; }
+  .statement:last-child { grid-area: mission; }
 
   .linked__path {
     grid-area: path;
-    align-self: start;
-    padding-top: 0;
+    justify-content: center;
+    padding: 0;
   }
 
   .direction-analysis {
@@ -1306,25 +1306,16 @@ blockquote p { font-weight: 400; }
   border-radius: 50%;
   background: var(--canvas);
   border: 3px solid var(--ink);
+  /* the connector stops at the marker instead of running behind it */
+  box-shadow: 0 0 0 0.3rem var(--canvas);
 }
-
-.tstage__icon { color: var(--ultra); margin-bottom: 0.75rem; }
 
 @media (min-width: 52rem) {
   .tstage { padding-top: 3rem; }
 
-  .tstage__dot { top: 0.575rem; }
-
-  .tstage__icon {
-    position: absolute;
-    top: 0.25rem;
-    left: 50%;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0;
-    transform: translateX(-50%);
-    box-shadow: 0 0 0 0.45rem var(--canvas);
-  }
+  /* centred on the connector: the line sits at 1rem with a 2px stroke, and
+     the dot is 0.85rem across inside a 3px ring */
+  .tstage__dot { top: 0.64rem; }
 }
 
 .tstage__title {
@@ -1390,7 +1381,12 @@ blockquote p { font-weight: 400; }
   .quadrants { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-tight); }
 }
 
-.quadrant {
+/* The one card in the system. 06's skill quadrants defined it first; 03's
+   vision, mission and direction now use the same fill, radius, border and
+   padding rather than a second, near-identical card. */
+.quadrant,
+.statement,
+.direction-analysis {
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: clamp(1.25rem, 2.2vw, 1.75rem);
@@ -1536,6 +1532,9 @@ blockquote p { font-weight: 400; }
   background: var(--glow);
   border-radius: var(--r-md);
   padding: 0.9rem 1.35rem;
+  /* .section spaces its children by --sp-flow, which is generous around a
+     chip this small. Trim both sides back to the block step. */
+  margin-block: calc(var(--sp-block) - var(--sp-flow));
 }
 
 .badge__type { font-family: var(--display); font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1; }
@@ -1554,13 +1553,16 @@ blockquote p { font-weight: 400; }
   display: grid;
   gap: 0.2rem 1.5rem;
   padding: 1.15rem 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--ink-3);
 }
 
-.career:last-child { border-bottom: 1px solid var(--border); }
+.career:last-child { border-bottom: 1px solid var(--ink-3); }
 
 @media (min-width: 46rem) {
-  .career { grid-template-columns: 3rem minmax(0, 20rem) minmax(0, 1fr); align-items: baseline; }
+  /* start, not baseline: the role and its rationale are set at different
+     sizes, so a shared baseline dropped the rationale below the role and
+     broke the horizontal read across the row. */
+  .career { grid-template-columns: 3rem minmax(0, 20rem) minmax(0, 1fr); align-items: start; }
 }
 
 .career::before {
@@ -1574,13 +1576,26 @@ blockquote p { font-weight: 400; }
 
 .career p { font-size: var(--fs-small); color: var(--ink-2); }
 
-.caveat { max-width: var(--measure); margin-top: 2rem; font-size: var(--fs-small); color: var(--ink-2); }
+.caveat {
+  max-width: var(--measure);
+  margin-top: var(--sp-flow);
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+  /* Instrument Serif ships a true italic; the reading face does not, so this
+     would otherwise be a synthesised oblique. */
+  font-family: var(--serif);
+  font-style: italic;
+}
 
 /* ---------- 18. 09 employer + pillars ---------- */
 
 .employer-row {
-  align-items: end;
+  /* baseline, not end: the wordmark is display type and the place is a small
+     label, so aligning their boxes left the two sitting on different lines. */
+  align-items: baseline;
   row-gap: 0.85rem;
+  /* the header is a compact row; --sp-flow on both sides stranded it */
+  margin-block: calc(var(--sp-block) - var(--sp-flow));
 }
 
 .employer__name {
