@@ -770,9 +770,6 @@ body::after {
   /* row 1 belongs to the accent bar, so the title and icon share row 2 */
   .chapter__text { grid-column: 1 / 8; grid-row: 2; }
   .chapter__icon { grid-column: 9 / 13; grid-row: 2; }
-
-  .chapter--flip .chapter__text { grid-column: 6 / 13; }
-  .chapter--flip .chapter__icon { grid-column: 1 / 5; grid-row: 2; }
 }
 
 .chapter__num {
