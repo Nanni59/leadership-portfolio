@@ -1552,13 +1552,14 @@ blockquote p { font-weight: 400; }
    column. Ink against the off-white body is what stops the table reading as a
    plain white-on-grey grid. */
 .careers__caption {
-  padding: 0.95rem 1.25rem;
+  padding: 0.85rem 1.25rem;
   background: var(--ink);
   color: var(--canvas);
-  font-family: var(--ui);
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-family: var(--display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -1593,8 +1594,14 @@ blockquote p { font-weight: 400; }
   .career::before,
   .career__title { border-right: 1px solid var(--border); }
 
-  /* the index reads as a rail, not a first column of data */
-  .career::before { background: var(--canvas); }
+  /* the index reads as a rail, not a first column of data, and the numeral
+     centres in it both ways rather than sitting in the top corner */
+  .career::before {
+    background: var(--canvas);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .career::before {
@@ -1604,7 +1611,12 @@ blockquote p { font-weight: 400; }
   color: var(--ultra-deep);
 }
 
-.career__title { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
+.career__title {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
 
 .career p { font-size: var(--fs-small); color: var(--ink-2); }
 
