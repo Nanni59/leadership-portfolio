@@ -28,7 +28,7 @@ grep -n "OUTSTANDING" index.html
 | Nine theme lines | one under each section heading, `[theme line]` |
 | Cover tagline | `[one-line tagline]` |
 | Submission date | `[date]` |
-| `assets/portrait.jpg` | required by the assignment |
+| `assets/portrait.webp` | supplied |
 | `assets/idol.jpg` | optional — see ASSETS.md before choosing an image |
 | Three prose passes | search `PENDING YOUR EDIT` |
 | Laozi edition details | Works Cited |
@@ -104,14 +104,17 @@ just a visual divider.
 
 ### Adding the portrait
 
-The portrait is the front card of the cover cluster. Delete the
-`<div class="hcard__slot">…</div>` block and paste in the tag sitting in the
-comment beside it:
+The portrait is the front card of the cover cluster and is now in place:
 
 ```html
-<img class="hcard__img" src="assets/portrait.jpg"
-     alt="[describe the photo in a few words]" width="800" height="1000">
+<img class="hcard__img" src="assets/portrait.webp"
+     alt="Muhammad Ibrahim Sameer, in a dark suit jacket over a checked shirt."
+     width="720" height="900">
 ```
+
+It is a 4:5 cutout on a transparent background, which is why it sits directly
+on the dark card. Replacing it means matching that ratio, or the card will
+crop it.
 
 §07 needs no photograph — the initials card is a finished treatment. See
 ASSETS.md before adding one.

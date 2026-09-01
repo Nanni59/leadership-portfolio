@@ -16,8 +16,8 @@ grep -n "\[.*\]" index.html
 
 - [ ] Full name (appears twice — `<title>` and the cover heading)
 - [ ] Short name in the mobile nav bar
-- [ ] `assets/portrait.jpg` added
-- [ ] Alt text written for the portrait
+- [x] `assets/portrait.webp` added
+- [x] Alt text written for the portrait
 - [ ] One-line tagline
 - [ ] Submission date
 - [ ] Course name and instructor are already filled in — confirm they are correct

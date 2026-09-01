@@ -92,7 +92,7 @@ the only functional icon family on the page.
 
 | File | Status | Used for |
 |---|---|---|
-| `portrait.jpg` | **Required, not yet supplied** | front card of the cover cluster |
+| `portrait.webp` | Supplied | front card of the cover cluster |
 | `idol.jpg` | Optional | §07 |
 
 Neither is referenced by an `<img>` tag, so there are no broken images and no

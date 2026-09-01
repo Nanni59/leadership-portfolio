@@ -456,7 +456,6 @@ body::after {
 .i--compass     { --icon: url("assets/icons/compass.svg"); }
 .i--education   { --icon: url("assets/icons/education.svg"); }
 .i--arrow-right { --icon: url("assets/icons/arrow-right.svg"); }
-.i--image       { --icon: url("assets/icons/image.svg"); }
 
 .icon-asset {
   display: block;
@@ -629,32 +628,6 @@ body::after {
   from { opacity: 0; transform: rotate(var(--rot, 0deg)) translateY(18px); }
 }
 
-.hcard__slot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  aspect-ratio: 4 / 5;
-  border: 1.5px dashed rgba(253, 202, 64, 0.55);
-  border-radius: var(--r-sm);
-  color: var(--glow);
-  text-align: center;
-}
-
-.hcard__slot-label {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.hcard__slot-path {
-  font-size: 0.625rem;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-  color: var(--ink-3);
-}
-
 .hcard__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-sm); }
 
 /* signature interaction */
@@ -698,7 +671,11 @@ body::after {
   }
 
   .hcard--photo { grid-column: span 2; order: -1; }
-  .hcard--photo .hcard__slot { aspect-ratio: 16 / 9; }
+
+  /* Full width, a 4:5 portrait runs over 400px tall and pushes the cover past
+     one and a half screens. A square keeps the face large but shorter, and the
+     crop comes off the bottom so the headroom above the hair survives. */
+  .hcard--photo .hcard__img { aspect-ratio: 1 / 1; object-position: 50% 0%; }
   .pict--card { max-width: 7rem; }
 }
 
@@ -1793,7 +1770,9 @@ blockquote p { font-weight: 400; }
   }
 
   .hcard { position: static; width: auto; transform: none !important; animation: none !important; }
-  .hcard--photo { display: none; }
+  /* the portrait is the subject of the cover, so it prints; it takes two of
+     the four columns so it is not reduced to a thumbnail */
+  .hcard--photo { grid-column: span 2; order: -1; }
 
   .section { padding: 0.9rem 0; break-inside: auto; }
   .chapter { padding: 1rem 0 0.75rem; break-before: page; }
