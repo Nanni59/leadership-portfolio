@@ -1375,7 +1375,8 @@ blockquote p { font-weight: 400; }
    padding rather than a second, near-identical card. */
 .quadrant,
 .statement,
-.direction-analysis {
+.direction-analysis,
+.careers {
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: clamp(1.25rem, 2.2vw, 1.75rem);
@@ -1535,23 +1536,47 @@ blockquote p { font-weight: 400; }
   text-transform: uppercase;
 }
 
-.careers { counter-reset: career; display: grid; }
+/* Half card, half table. The fill, border and radius are the page's one card
+   component; the card's padding is dropped so the rules can run edge to edge,
+   and each cell carries the padding instead. */
+.careers {
+  counter-reset: career;
+  display: grid;
+  padding: 0;
+  overflow: hidden;
+}
 
 .career {
   counter-increment: career;
   display: grid;
-  gap: 0.2rem 1.5rem;
-  padding: 1.15rem 0;
-  border-top: 1px solid var(--ink-3);
+  gap: 0.2rem 0;
+  padding: 1.15rem 1.25rem;
 }
 
-.career:last-child { border-bottom: 1px solid var(--ink-3); }
+/* the card's own border closes the top and bottom, so rules only divide rows */
+.career + .career { border-top: 1px solid var(--border); }
 
 @media (min-width: 46rem) {
-  /* start, not baseline: the role and its rationale are set at different
-     sizes, so a shared baseline dropped the rationale below the role and
-     broke the horizontal read across the row. */
-  .career { grid-template-columns: 3rem minmax(0, 20rem) minmax(0, 1fr); align-items: start; }
+  .career {
+    /* proportional, not a fixed 20rem: at the narrow end of this breakpoint a
+       fixed role column starved the rationale, which pushed rows past 230px
+       tall with most of the role cell left empty */
+    grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 2.2fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  /* Padding moves to the cells and the cells stretch to the row's height, so
+     the column rules are continuous down the table. Text still starts at the
+     top of each cell, which is what keeps a row readable straight across. */
+  .career::before,
+  .career > * { padding: 1.15rem 1.25rem; }
+
+  .career::before,
+  .career__title { border-right: 1px solid var(--border); }
+
+  /* the index reads as a rail, not a first column of data */
+  .career::before { background: var(--canvas); }
 }
 
 .career::before {
@@ -1740,7 +1765,7 @@ blockquote p { font-weight: 400; }
 
   .layout { display: block; max-width: none; padding: 0; }
 
-  .section--ink, .quadrant, .hcard, .badge, .initials, .cover__theme {
+  .section--ink, .quadrant, .hcard, .badge, .initials, .cover__theme, .careers {
     background: #fff !important;
     color: #000 !important;
     margin-inline: 0;
@@ -1812,7 +1837,13 @@ blockquote p { font-weight: 400; }
 
   .prose, .prose--narrow, .prose--long, .works-cited, .caveat, .colophon { max-width: none; }
 
-  .columns, .careers, .quadrants, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .columns, .quadrants, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* the careers table stays one column so its three columns keep their room */
+  .careers { grid-template-columns: 1fr; border: 1px solid #999; border-radius: 0; }
+  .career + .career { border-top-color: #999; }
+  .career::before, .career__title { border-right-color: #999; }
+  .career::before { background: none !important; }
 
   a { text-decoration: none; color: #000; }
   .colophon a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
