@@ -993,8 +993,15 @@ blockquote p { font-weight: 400; }
 .philosophy-thesis__mark {
   position: relative;
   isolation: isolate;
-  display: grid;
-  place-items: center;
+  /* The icon and its label are one centred column. The label used to be
+     absolutely positioned against the bottom edge while the icon centred in
+     the whole box, so the pair never sat centred as a group. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem;
   width: clamp(8rem, 14vw, 10rem);
   aspect-ratio: 1;
   justify-self: start;
@@ -1017,12 +1024,8 @@ blockquote p { font-weight: 400; }
 }
 
 .philosophy-thesis__mark span {
-  position: absolute;
-  left: 50%;
-  bottom: 1rem;
-  width: max-content;
-  max-width: 82%;
-  transform: translateX(-50%) rotate(-2deg);
+  max-width: 100%;
+  transform: rotate(-2deg);
   font-size: 0.6rem;
   font-weight: 700;
   line-height: 1.25;
