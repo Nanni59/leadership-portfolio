@@ -53,6 +53,8 @@
   --display: "Anton", "Arial Narrow", "Helvetica Neue", sans-serif;
   --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
   --ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* the tracked uppercase labels; condensed, so they need less tracking */
+  --caps: "Roboto Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
   /* Reading text. Oswald is the condensed sibling of Anton, so paragraphs
      carry the title face's character, but unlike Anton it has real light
      weights - Anton ships only one, and that one is a headline weight. */
@@ -153,7 +155,7 @@ a:hover { color: var(--signal); }
   color: var(--canvas);
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -161,11 +163,11 @@ a:hover { color: var(--signal); }
 .skip:focus { left: 0; }
 
 .eyebrow {
-  font-family: var(--ui);   /* stated, not inherited: otherwise a reading-text
+  font-family: var(--caps);   /* stated, not inherited: otherwise a reading-text
                                rule in any container silently claims it */
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -252,7 +254,7 @@ body::after {
   gap: 0.6rem;
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0.9rem 0 0.55rem;
 }
@@ -265,7 +267,7 @@ body::after {
   display: none;
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -297,7 +299,7 @@ body::after {
 .nav__label {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--ink-3);
@@ -531,7 +533,7 @@ body::after {
 .cover__course {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-2);
   margin-top: 1.5rem;
@@ -544,7 +546,7 @@ body::after {
   display: inline-block;
   font-size: var(--fs-label);
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   background: var(--signal);
   /* not --surface: an off-white here drops the tag to 4.11:1 on the red */
@@ -611,7 +613,7 @@ body::after {
 .hcard figcaption {
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
   margin-top: 0.55rem;
@@ -707,7 +709,7 @@ body::after {
 .metastrip dt {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -784,7 +786,7 @@ body::after {
 .chapter__meta {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-2);
   margin-top: 0.65rem;
@@ -857,7 +859,7 @@ body::after {
   grid-row: 2;
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-2);
   margin-top: 0;
@@ -925,6 +927,19 @@ blockquote,
   font-weight: var(--read-weight);
 }
 
+/* The tracked uppercase labels. Listed rather than left to inherit, for the
+   same reason the reading rule above is explicit: these are p, li, span, dt
+   and figcaption elements sitting inside prose containers, so inheriting
+   would leave them in whatever face the container set. Single classes, so
+   they outrank the (0,0,1) reading rule without !important. */
+.skip, .nav__brand, .nav__chapter, .nav__label,
+.cover__course, .cover__theme, .chapter__meta, .shead__theme,
+.philosophy-thesis__label, .philosophy-thesis__mark span,
+.linked__cap, .item__cat, .badge__label, .employer__place, .wordcount,
+.hcard figcaption, .pullquote figcaption {
+  font-family: var(--caps);
+}
+
 /* Anton and Instrument Serif ship a single 400. Anything that overrides the
    family above still inherits its 300, which resolves to 400 today but would
    render light the day either face gains weights. Pin them. */
@@ -963,7 +978,7 @@ blockquote p { font-weight: 400; }
   margin-bottom: 1rem;
   font-size: var(--fs-label);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ultra-deep);
 }
@@ -1031,7 +1046,7 @@ blockquote p { font-weight: 400; }
   font-size: 0.6rem;
   font-weight: 700;
   line-height: 1.25;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   text-align: center;
   text-transform: uppercase;
   color: var(--ink);
@@ -1061,10 +1076,10 @@ blockquote p { font-weight: 400; }
 }
 
 .col__label {
-  font-family: var(--ui) !important;
+  font-family: var(--caps) !important;
   font-size: var(--fs-label) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -1135,7 +1150,7 @@ blockquote p { font-weight: 400; }
 .pullquote figcaption {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--glow);
   margin-top: 1.5rem;
@@ -1211,7 +1226,7 @@ blockquote p { font-weight: 400; }
 .linked__cap {
   font-size: 0.625rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -1435,7 +1450,7 @@ blockquote p { font-weight: 400; }
 .item__cat {
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
   margin: 0.35rem 0 0.65rem;
@@ -1490,11 +1505,11 @@ blockquote p { font-weight: 400; }
 
 .casestudy__credit {
   margin-top: 0.5rem;
-  font-family: var(--ui);
+  font-family: var(--caps);
   font-size: 0.625rem;
   font-weight: 600;
   line-height: 1.4;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -1534,7 +1549,7 @@ blockquote p { font-weight: 400; }
 .badge__label {
   font-size: var(--fs-label);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
@@ -1559,7 +1574,7 @@ blockquote p { font-weight: 400; }
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.2;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -1680,7 +1695,7 @@ blockquote p { font-weight: 400; }
   grid-row: 2;
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -1712,7 +1727,7 @@ blockquote p { font-weight: 400; }
   gap: 0.65rem;
   font-family: var(--display);
   font-size: 1.0625rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ultra-deep);
   margin-top: 2rem;
@@ -1731,7 +1746,7 @@ blockquote p { font-weight: 400; }
   display: inline-block;
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   background: var(--glow);
   border-radius: var(--r-sm);
