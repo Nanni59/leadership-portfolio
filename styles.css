@@ -571,6 +571,23 @@ body::after {
   margin-top: 1rem;
 }
 
+.cover__contact {
+  max-width: 54ch;
+  margin-top: 0.8rem;
+  color: var(--ink-3);
+  font-family: var(--caps);
+  font-size: var(--fs-label);
+  line-height: 1.6;
+}
+
+.cover__contact a {
+  color: inherit;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.18em;
+}
+
+.cover__contact a:hover { color: var(--ultra); }
+
 .cluster {
   position: relative;
   /* The four supporting cards are absolutely positioned; the portrait is the
@@ -913,6 +930,15 @@ body::after {
 .prose p + p { margin-top: 1.2rem; }
 
 .prose p { text-wrap: pretty; }
+
+.section-intro {
+  margin: 0;
+  color: var(--ink-2);
+  font-family: var(--read);
+  font-size: var(--fs-read);
+  font-weight: var(--read-weight);
+  text-wrap: pretty;
+}
 
 /* ---- Reading text face --------------------------------------------------
    Every block of running prose on the page, listed explicitly rather than
@@ -1876,6 +1902,7 @@ blockquote p { font-weight: 400; }
 
   .cover { min-height: 0; padding: 0 0 1rem; break-after: page; overflow: visible; }
   .cover__name { font-size: 34pt; }
+  .cover__contact { color: #000; font-size: 8.5pt; }
 
   /* no decorative overlap on paper */
   .cluster {
